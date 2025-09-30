@@ -1,0 +1,326 @@
+/* General Body and Layout */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f0f4f8;
+}
+
+.dashboard-page {
+  display: flex;
+  min-height: 100vh;
+  /* align-items: center; */
+  justify-content: flex-start;
+  margin: 3rem 0 2rem;
+/* overflow-y: hidden; */
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 1rem 0;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  padding: 2rem 1.5rem;
+  position: sticky;
+  left: 0px;
+top: 100px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #dfe6e9;
+  margin-bottom: 2rem;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc;
+  background-image: url('https://placehold.co/50x50/A0B2C4/FFFFFF?text=User');
+  background-size: cover;
+  background-position: center;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.member-since {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #7f8c8d;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease-out;
+}
+
+.nav-item:hover {
+  background-color: #f0f4f8;
+  color: #2c3e50;
+}
+
+.nav-item.active {
+  background-color: #e6f2ff;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  fill: #7f8c8d;
+}
+
+.nav-item.active .nav-icon {
+  fill: #007bff;
+}
+
+.logout {
+  color: #dc3545;
+  margin-top: auto;
+}
+
+.logout .nav-icon {
+  fill: #dc3545;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+/* Recent Orders Table */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th {
+  padding: 12px 15px;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid #dfe6e9;
+}
+
+td {
+  padding: 15px;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #dfe6e9;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-shipped {
+  background-color: #d1e7dd;
+  color: #0a7a50;
+}
+
+.status-delivered {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Account Details & Wishlist Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #dfe6e9;
+}
+
+.detail-row:last-of-type {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  min-width: 100px;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+.edit-icon {
+  stroke: #7f8c8d;
+  cursor: pointer;
+}
+
+/* Wishlist Grid */
+.wishlist-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.wishlist-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 100px;
+}
+
+.item-image {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.item-name {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.item-price {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+
+/* Media Queries for Mobile View */
+@media (max-width: 768px) {
+  .dashboard-page {
+    /* flex-direction: column; */
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .nav-item {
+    flex-direction: column;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    gap: 0.25rem;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .nav-item .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .user-info {
+    justify-content: center;
+  }
+
+  .logout {
+    display: none; /* Hide logout from sidebar to save space */
+  }
+
+  .main-content {
+    padding: 1.5rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .wishlist-grid {
+    justify-content: space-around;
+  }
+}

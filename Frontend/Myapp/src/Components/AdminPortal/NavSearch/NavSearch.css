@@ -1,0 +1,70 @@
+/* Positioning for the badge */
+.cart-icon-wrapper {
+    position: relative; /* Container for icon and badge */
+    cursor: pointer;
+    margin-right: 15px; /* Adjust spacing as needed */
+}
+
+.cart-icon {
+    /* Your existing icon styles */
+    width: 24px;
+    height: 24px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px; /* Move up and slightly to the right of the icon */
+    right: -8px;
+    background-color: #ff0000; /* Red background for notification */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px; /* Adjust padding for shape */
+    min-width: 18px; /* Minimum size for 1-digit numbers */
+    text-align: center;
+    line-height: 1.2;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    pointer-events: none; /* Allows click-through to the wrapper */
+}
+
+/* Ensure icons are consistently styled */
+.icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    stroke: #333; /* Default icon color */
+    transition: stroke 0.2s;
+    margin-left: 15px; /* Spacing between icons */
+}
+
+.icon:hover {
+    stroke: #185A9D; /* Hover color */
+}
+
+/* Your existing navbar styles here... */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-text {
+    margin-left: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #185A9D;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}

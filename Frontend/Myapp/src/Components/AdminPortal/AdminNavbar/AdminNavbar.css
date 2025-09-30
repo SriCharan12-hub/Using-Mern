@@ -1,0 +1,101 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-text {
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #185a9d;
+}
+
+.brand svg {
+  color: #185a9d;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding-left: 2.5rem; /* Space for the search icon */
+  font-size: 1rem;
+  width: 250px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #185a9d;
+  width: 300px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: #7f8c8d;
+  width: 20px;
+  height: 20px;
+}
+
+.icon {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.cart-icon path,
+.user-icon path {
+  stroke: #7f8c8d;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #185a9d;
+}
+.navbar-right .icon path {
+  /* This targets the path element inside any element with the 'icon' class */
+  stroke: #7f8c8d; /* A common gray color */
+}
+
+/* Ensure icons have a size */
+.icon {
+  width: 30px;
+  height: 30px;
+}

@@ -1,0 +1,355 @@
+/* General Body and Layout */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f0f4f8;
+}
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.brand svg {
+  margin-right: 0.5rem;
+  fill: #185A9D;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-icon {
+  fill: #7f8c8d;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+  background-image: url('https://placehold.co/40x40/A0B2C4/FFFFFF?text=User');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Main Content Wrapper */
+.content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Dashboard Sections */
+.dashboard-section {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.add-product-btn {
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-product-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+}
+
+.products-table,
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.products-table th,
+.orders-table th {
+  padding: 12px 15px;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid #dfe6e9;
+}
+/* 1. Container Styles (Essential for Positioning) */
+.search-bar-container {
+    position: relative; /* CRITICAL: Sets the reference point for the absolutely positioned icon */
+    max-width: 300px; /* Example width - adjust as necessary */
+    width: 100%;
+    margin: 10px 0; /* Add space around the search bar */
+    display: flex; /* Ensures the container behaves predictably */
+    align-items: center;
+    /* border: 1px solid darkgoldenrod; */
+    border-radius: 30px;
+}
+
+
+.search-input {
+    width: 100%;
+    
+    padding: 10px 40px 10px 15px; 
+
+    border-radius: 25px; 
+    font-size: 1rem;
+  
+    
+}
+
+
+.search-icon-btn {
+    position: absolute; 
+    top: 50%;           
+    right: 90%;        
+    transform: translateY(-50%); 
+    
+   
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 0; 
+    z-index: 2; 
+}
+
+/* 4. SVG Icon Styling */
+.search-icon-svg {
+    width: 20px;
+    height: 20px;
+   
+}
+
+.search-icon-btn:hover .search-icon-svg {
+    color: #333; 
+}
+
+
+.products-table td,
+.orders-table td {
+  padding: 15px;
+  font-size: 0.95rem;
+  color: #2c3e50;
+  /* border-bottom: 1px solid #dfe6e9; */
+  /* height: 100px; */
+  border: none;
+}
+
+tr{
+  border-bottom: 1px solid #dfe6e9;
+}
+
+/* Specific Product Table Styling */
+.product-cell {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.product-image {
+  width: 60px!important;
+  height: 60px!important;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Specific Orders Table Styling */
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-shipped {
+  background-color: #d1e7dd;
+  color: #0a7a50;
+}
+
+.status-processing {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-delivered {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Action Links */
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.action-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.edit-link {
+  color: #007bff;
+}
+
+.edit-link:hover {
+  color: #0056b3;
+}
+
+.delete-link {
+  color: #dc3545;
+}
+
+.delete-link:hover {
+  color: #b02a37;
+}
+
+.details-link, .update-link {
+  color: #3498db;
+}
+
+.details-link:hover, .update-link:hover {
+  color: #2980b9;
+}
+
+/* Footer */
+.footer {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.footer-content p {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+/* Media Queries for Mobile View */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .brand {
+    font-size: 1.1rem;
+  }
+  
+  .user-profile {
+    gap: 0.5rem;
+  }
+
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .content-wrapper {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .dashboard-section {
+    padding: 1rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .table-container {
+    overflow-x: scroll;
+  }
+
+  /* Force tables to be scrollable and shrink fonts on mobile */
+  .products-table,
+  .orders-table {
+    min-width: 600px;
+    font-size: 0.8rem;
+  }
+
+  .products-table th,
+  .orders-table th,
+  .products-table td,
+  .orders-table td {
+    padding: 10px;
+  }
+  
+  .action-link {
+    font-size: 0.8rem;
+  }
+
+  .actions-cell {
+    gap: 8px;
+  }
+  
+  .footer {
+    padding: 1rem;
+  }
+
+}

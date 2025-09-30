@@ -1,0 +1,174 @@
+/* LogoutConfirm.css */
+
+/* Full-screen overlay with animated gradient background */
+.logout-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Viewport width */
+  height: 100vh; /* Viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: linear-gradient(
+    45deg,
+    #ff9a9e 0%, /* Light red/pink */
+    #fad0c4 99%, /* Peach */
+    #fad0c4 100%
+  );
+  background-size: 400% 400%; /* Larger than viewport for animation */
+  animation: gradientBackground 15s ease infinite; /* Animated gradient */
+  overflow: hidden; /* Hide any overflow from animations */
+}
+
+/* Gradient background animation */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* The card that holds the content */
+.logout-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 90%; /* Responsive width: will be 90% of the viewport width */
+  max-width: 450px; /* But won't get wider than 450px on large screens */
+  transform: scale(0.8);
+  opacity: 0;
+  animation: fadeInScale 0.5s ease-out forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card entry animation */
+@keyframes fadeInScale {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Headings and paragraphs */
+.logout-card h2 {
+  font-size: clamp(1.8em, 5vw, 2.2em); /* Fluid font size */
+  margin-bottom: 12px;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logout-card p {
+  font-size: clamp(1em, 2.5vw, 1.1em); /* Fluid font size */
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* Container for the buttons */
+.button-group {
+  display: flex;
+  flex-direction: column; /* By default, stack buttons vertically */
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* General button styles */
+.logout-button {
+  padding: 14px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure buttons take full width of their container */
+}
+
+/* Style for the 'Yes, Log Out' button */
+.logout-button.confirm {
+  background: linear-gradient(
+    90deg,
+    #ff6a88 0%,
+    #ff9a9e 100%
+  );
+  color: #fff;
+  border: 1px solid #ff6a88;
+}
+
+.logout-button.confirm:hover {
+  background: linear-gradient(90deg, #e05c75 0%, #e08388 100%);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 15px rgba(255, 106, 136, 0.4);
+}
+
+/* Style for the 'Cancel' button */
+.logout-button.cancel {
+  background-color: #f0f4f8;
+  color: #555;
+  border: 1px solid #dcdfe4;
+}
+
+.logout-button.cancel:hover {
+  background-color: #e2e8f0;
+  color: #333;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 15px rgba(197, 204, 211, 0.4);
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* For tablets and larger screens (600px and up) */
+@media (min-width: 600px) {
+  .button-group {
+    flex-direction: row; /* Change button layout to side-by-side */
+    justify-content: center; /* Center them horizontally */
+  }
+
+  .logout-button {
+    width: auto; /* Buttons will no longer take full width */
+    padding: 14px 40px; /* Add more horizontal padding for better spacing */
+  }
+}
+
+/* Optional: Add a subtle pulsate to the card for more attraction */
+.logout-card::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: -1;
+  animation: pulsate 2s infinite ease-in-out;
+  opacity: 0;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+}

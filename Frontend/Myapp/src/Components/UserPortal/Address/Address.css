@@ -1,0 +1,303 @@
+/*
+|--------------------------------------------------------------------------
+| 0. VARIABLES & BASE STYLES (Minimalist Grid Theme)
+|--------------------------------------------------------------------------
+*/
+:root {
+    --color-primary: #1f2937;       /* Dark Gray for headings */
+    --color-accent-blue: #3b82f6;   /* Blue for 'Add New' button/hover */
+    --color-accent-light: #e0f2ff;  /* Light blue background (for footer/button) */
+    --color-danger: #f87171;        /* Light Red for Delete hover */
+    
+    --color-background-page: #f9fbfd; 
+    --color-background-card: #ffffff;
+    --color-text-dark: #1f2937;
+    --color-text-secondary: #6b7280;
+    --color-border-light: #e5e7eb;
+    
+    --shadow-card: 0 5px 15px rgba(0, 0, 0, 0.05); /* Soft card lift */
+}
+
+/* Global Reset/Base */
+.profile-page-wrapper {
+    min-height: 100vh;
+    background-color: var(--color-background-page);
+    font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    padding: 40px 20px;
+}
+
+.address-manager-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Removed background/shadow here, applying only to cards for the 'open' look */
+}
+
+/*
+|--------------------------------------------------------------------------
+| 1. HEADER & ADD BUTTON (Top Area)
+|--------------------------------------------------------------------------
+*/
+.address-manager__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.address-manager__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+}
+
+.btn-add-new-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: var(--color-accent-light); /* Light blue background */
+    color: var(--color-accent-blue);
+    border: 1px solid var(--color-accent-blue);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.btn-add-new-header:hover:not(:disabled) {
+    background-color: var(--color-accent-blue);
+    color: white;
+}
+
+.plus-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 2. ADDRESSES GRID LAYOUT (FULL WIDTH)
+|--------------------------------------------------------------------------
+*/
+.addresses-list-grid {
+    display: grid;
+    /* FIX: Ensures two equal, fluid columns */
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.address-card {
+    background-color: var(--color-background-card);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow like image */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px; 
+    border: 1px solid var(--color-border-light);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.address-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Add New Card (Dashed Border) */
+.add-new-card {
+    border: 2px dashed var(--color-border-light);
+    background-color: #fcfcfc;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: all 0.2s;
+}
+.add-new-card:hover {
+    border-color: var(--color-accent-blue);
+    color: var(--color-accent-blue);
+    background-color: #f4f9ff;
+}
+
+.add-icon-large {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    stroke-width: 2;
+}
+
+/* 2A. Card Content Styling */
+.card-header {
+    padding: 20px;
+    padding-bottom: 10px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.card-body {
+    padding: 0 20px 20px;
+    flex-grow: 1; 
+}
+
+.card-detail-person {
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-top: 5px;
+    color: var(--color-text-dark);
+}
+
+.card-detail-line {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+}
+
+
+/* 2B. Card Footer Actions */
+.card-footer-actions {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-accent-light); /* Light blue footer background */
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 0; /* Padding handled by buttons */
+    border-top: 1px solid var(--color-border-light);
+    overflow: hidden; /* Contains rounded corners */
+}
+
+.action-btn-edit, .action-btn-delete {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 15px; /* Increased vertical padding for prominence */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+.action-btn-edit svg, .action-btn-delete svg {
+    width: 18px;
+    height: 18px;
+}
+
+.action-btn-edit {
+    color: var(--color-text-dark);
+    border-right: 1px solid var(--color-border-light);
+}
+.action-btn-edit:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--color-accent-blue);
+}
+
+.action-btn-delete {
+    color: var(--color-text-dark);
+}
+.action-btn-delete:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: var(--color-danger);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 3. ADD/EDIT FORM MODAL STYLES (Kept separate for reusability)
+|--------------------------------------------------------------------------
+*/
+.address-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.address-form-modal {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+}
+
+.address-form .form-heading {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.address-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.address-form .input-row.split-input {
+    display: flex;
+    gap: 15px;
+}
+
+.address-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-primary-action, .btn-secondary-action {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-primary-action {
+    background-color: var(--color-accent-blue);
+    color: white;
+}
+.btn-secondary-action {
+    background-color: var(--color-border-light);
+    color: var(--color-text-dark);
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+    /* Stack cards vertically on smaller screens */
+    .addresses-list-grid {
+        grid-template-columns: 1fr; 
+    }
+    .address-manager__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .btn-add-new-header {
+        width: 100%;
+        justify-content: center;
+        margin-top: 15px;
+    }
+}

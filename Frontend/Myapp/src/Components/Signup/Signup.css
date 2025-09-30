@@ -1,0 +1,215 @@
+/* Base Styles & Typography */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --primary: #185A9D; /* unified primary color */
+  --primary-dark: #13456f;
+  --bg: #f8f9fc;
+  --card: #ffffff;
+  --muted: #7f8c8d;
+  --input-border: #dfe6e9;
+  background-color: var(--bg);
+  background-attachment: fixed;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.logo svg {
+  margin-right: 0.5rem;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.sign-in-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.sign-in-link:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* Main Content and Card Layout */
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* Adjusts height to account for navbar */
+  padding: 2rem;
+  box-sizing: border-box;
+  margin-top: 80px; /* Pushes content down to clear the fixed navbar */
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+.signup-card {
+  background-color: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.header-text {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-text h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.header-text p {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.sign-in-link-text {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Form Styles */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-group label {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 1rem;
+  color: #999;
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease-out;
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(24, 90, 157, 0.12);
+}
+
+/* Float label on focus/input. Note: The label must contain text for this to work correctly. */
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:focus + label {
+  top: 5px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: var(--primary);
+  transform: translateY(-50%);
+  background-color: #fff;
+  padding: 0 4px;
+}
+
+/* Buttons */
+.create-account-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(24, 90, 157, 0.22);
+  margin-top: 0px;
+}
+
+.create-account-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(24, 90, 157, 0.32);
+}
+
+/* Styles for Google Login */
+.google-login-container {
+  margin-left: 80px;
+  margin-top: 20px;
+}
+
+/* Terms & Privacy Text */
+.terms-privacy-text {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a0a0a0;
+  margin-top: 1.5rem;
+}
+
+.terms-privacy-text a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .signup-container {
+    padding: 0 1rem;
+  }
+  .google-login-container {
+    margin-left: 0;
+    text-align: center;
+  }
+}
