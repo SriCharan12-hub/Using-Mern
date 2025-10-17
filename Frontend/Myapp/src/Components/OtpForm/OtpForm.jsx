@@ -1,8 +1,8 @@
-// ForgotPassword.jsx
+
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './OtpForm.css'; // 👈 Import the CSS file
+import './OtpForm.css'; 
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -14,10 +14,10 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage(""); // Clear previous message
+    setMessage("");
     
     try {
-      const res = await axios.post("http://localhost:8000/forgot-password", { email });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/forgot-password`, { email });
       
 
       setMessage(res.data.message || "OTP sent successfully. Check your email.");

@@ -32,7 +32,7 @@ const Address = () => {
         return;
     }
     try {
-      const res = await axios.get('http://localhost:8000/getaddress', { headers });
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/getaddress`, { headers });
       setAddresses(res.data.addresses || []);
       setError(null);
     } catch (err) {
@@ -62,7 +62,7 @@ const Address = () => {
   const handleDelete = async (addressId) => {
     if (!window.confirm("Are you sure you want to delete this address?")) return;
     try {
-      const res = await axios.delete(`http://localhost:8000/deleteaddress/${addressId}`, { headers });
+      const res = await axios.delete(`${import.meta.env.VITE_API_URL}/deleteaddress/${addressId}`, { headers });
       alert(res.data.message);
       fetchAddresses(); // Refresh the list
     } catch (err) {
@@ -84,8 +84,8 @@ const Address = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const url = currentEditId
-        ? `http://localhost:8000/updateaddress/${currentEditId}`
-        : 'http://localhost:8000/addaddress';
+        ? `${import.meta.env.VITE_API_URL}/updateaddress/${currentEditId}`
+        : `${import.meta.env.VITE_API_URL}/addaddress`;
     const method = currentEditId ? 'put' : 'post';
 
     try {

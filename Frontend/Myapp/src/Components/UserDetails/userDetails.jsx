@@ -22,7 +22,7 @@ const UserDetails = () => {
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                const res = await axios.get("http://localhost:8000/user/get", {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/get`, {
                     headers: {
                         Authorization: `Bearer ${Cookies.get("jwttoken")}`,
                     },
@@ -54,7 +54,7 @@ const UserDetails = () => {
 
         try {
             await axios.put(
-                "http://localhost:8000/user/update",
+                `${import.meta.env.VITE_API_URL}/user/update`,
                 {
                     password: formPassword,
                     confirmPassword: confirmPassword,

@@ -1,16 +1,28 @@
+/* ========================================
+   NAVBAR STYLES
+   ======================================== */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 0rem;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  min-height: 60px;
 }
 
 .brand {
   display: flex;
   align-items: center;
+  z-index: 1001;
+  flex-shrink: 0;
 }
 
 .brand-text {
@@ -18,16 +30,19 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: #185a9d;
+  white-space: nowrap;
 }
 
 .brand svg {
   color: #185a9d;
+  flex-shrink: 0;
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 0.5rem!important;
+  gap: 0rem !important;
+  flex-shrink: 0;
 }
 
 .search-container {
@@ -40,7 +55,7 @@
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 20px;
-  padding-left: 2.5rem; /* Space for the search icon */
+  padding-left: 2.5rem;
   font-size: 1rem;
   width: 250px;
   transition: width 0.3s ease-in-out;
@@ -63,10 +78,14 @@
 .icon {
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 
 .icon:hover {
   transform: scale(1.1);
+  opacity: 0.7;
 }
 
 .cart-icon path,
@@ -89,13 +108,264 @@
 .nav-link:hover {
   color: #185a9d;
 }
+
 .navbar-right .icon path {
-  /* This targets the path element inside any element with the 'icon' class */
-  stroke: #7f8c8d; /* A common gray color */
+  stroke: #7f8c8d;
 }
 
-/* Ensure icons have a size */
-.icon {
-  width: 30px;
-  height: 30px;
+/* Cart badge styling */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: badgePulse 0.6s ease-in-out;
+}
+
+@keyframes badgePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.cart-icon-wrapper:hover {
+  transform: scale(1.1);
+}
+
+@keyframes badgeBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.cart-badge.updated {
+  animation: badgeBounce 0.5s ease-in-out;
+}
+
+/* ========================================
+   TABLET RESPONSIVE (768px - 1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  .navbar-right {
+    gap: 0.8rem;
+  }
+
+  .search-input {
+    width: 200px;
+  }
+
+  .search-input:focus {
+    width: 240px;
+  }
+
+  .brand-text {
+    font-size: 1.3rem;
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE (max-width: 767px)
+   ======================================== */
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+  }
+
+  .brand-text {
+    font-size: 1.2rem;
+  }
+
+  .navbar-right {
+    gap: 0.7rem;
+    justify-content: flex-end;
+  }
+
+  .search-container {
+    flex: 1;
+    max-width: 280px;
+    min-width: 0;
+  }
+
+  .search-input {
+    width: 100%;
+    min-width: 150px;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    padding-left: 2.2rem;
+  }
+
+  .search-input:focus {
+    width: 100%;
+  }
+
+  .search-icon {
+    width: 18px;
+    height: 18px;
+    left: 8px;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .cart-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    top: -6px;
+    right: -6px;
+  }
+}
+@media screen and ((max-width:606px ) and (min-width:521px)){
+  .navbar-right{
+    width:50%;
+    display:flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  .saree-image{
+    height: 200%;
+  }
+  .navbar{
+    padding: 10px 0.1rem !important;
+  }
+
+
+}
+/* ========================================
+   EXTRA SMALL MOBILE (max-width: 480px)
+   ======================================== */
+
+
+@media (max-width: 520px) {
+  .navbar {
+    padding: 0.7rem 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .brand-text {
+    font-size: 1.1rem;
+  }
+
+  .navbar-right {
+    gap: 0.1rem !important;
+    flex-wrap: nowrap;
+  }
+
+  .search-container {
+    max-width: 200px;
+  }
+
+  .search-input {
+    width: 100%;
+    min-width: 120px;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    padding-left: 2rem;
+  }
+
+  .search-icon {
+    width: 16px;
+    height: 16px;
+    left: 6px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+
+  .cart-badge {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    top: -5px;
+    right: -5px;
+    border-width: 1.5px;
+  }
+}
+
+/* ========================================
+   VERY SMALL SCREENS (max-width: 360px)
+   ======================================== */
+
+@media (max-width: 360px) {
+  .navbar {
+    padding: 0.6rem 0.2rem !important;
+  }
+
+  .brand-text {
+    font-size: 1rem;
+  }
+
+  .brand svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .navbar-right {
+    gap: 0.4rem;
+  }
+
+  .search-container {
+    max-width: 140px;
+  }
+
+  .search-input {
+    min-width: 100px;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    padding-left: 1rem;
+  }
+
+  .search-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .cart-badge {
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
+  }
 }

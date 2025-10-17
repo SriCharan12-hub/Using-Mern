@@ -10,7 +10,7 @@ const AddNewProduct = () => {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState("men's clothing");
   const [count, setCount] = useState('');
-  const [image, setImage] = useState('');
+  const [images, setImages] = useState([]); // Changed to array
   const [status, setStatus] = useState('');
 
   const fileInputRef = useRef(null);
@@ -39,7 +39,7 @@ const AddNewProduct = () => {
           },
         }
       );
-      return res.data.secure_url; // Cloudinary URL
+      return res.data.secure_url; 
     } catch (err) {
       console.error("Cloudinary Upload Error:", err);
       setStatus("Image upload failed!");
@@ -47,31 +47,54 @@ const AddNewProduct = () => {
     }
   };
 
-  // Handle file selection (click upload)
+  // Handle multiple file selection
   const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setStatus("Uploading image...");
-      const uploadedUrl = await uploadToCloudinary(file);
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    setStatus("Uploading images...");
+    const uploadedUrls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      setStatus(`Uploading image ${i + 1} of ${files.length}...`);
+      const uploadedUrl = await uploadToCloudinary(files[i]);
       if (uploadedUrl) {
-        setImage(uploadedUrl);
-        setStatus("Image uploaded successfully!");
+        uploadedUrls.push(uploadedUrl);
       }
+    }
+
+    if (uploadedUrls.length > 0) {
+      setImages((prev) => [...prev, ...uploadedUrls]);
+      setStatus(`${uploadedUrls.length} image(s) uploaded successfully!`);
     }
   };
 
   // Handle drag & drop upload
   const handleImageDrop = async (e) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      setStatus("Uploading image...");
-      const uploadedUrl = await uploadToCloudinary(file);
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length === 0) return;
+
+    setStatus("Uploading images...");
+    const uploadedUrls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      setStatus(`Uploading image ${i + 1} of ${files.length}...`);
+      const uploadedUrl = await uploadToCloudinary(files[i]);
       if (uploadedUrl) {
-        setImage(uploadedUrl);
-        setStatus("Image uploaded successfully!");
+        uploadedUrls.push(uploadedUrl);
       }
     }
+
+    if (uploadedUrls.length > 0) {
+      setImages((prev) => [...prev, ...uploadedUrls]);
+      setStatus(`${uploadedUrls.length} image(s) uploaded successfully!`);
+    }
+  };
+
+  // Remove image from array
+  const handleRemoveImage = (indexToRemove) => {
+    setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
   };
 
   // Save product to backend
@@ -80,8 +103,8 @@ const AddNewProduct = () => {
     setStatus('');
 
     try {
-      if (!title || !description || !price || !category || !count || !image) {
-        setStatus('Please fill in all the details and upload an image.');
+      if (!title || !description || !price || !category || !count || images.length === 0) {
+        setStatus('Please fill in all the details and upload at least one image.');
         return;
       }
 
@@ -89,13 +112,14 @@ const AddNewProduct = () => {
         title,
         price: Number(price),
         category,
-        image, // ✅ Cloudinary URL
+        image: images[0], // First image as main image
+        images: images, // All images array
         count: Number(count),
         description,
       };
 
       const response = await axios.post(
-        'http://localhost:8000/products/add',
+        `${import.meta.env.VITE_API_URL}/products/add`,
         productData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -109,7 +133,7 @@ const AddNewProduct = () => {
       setPrice('');
       setCategory("men's clothing");
       setCount('');
-      setImage('');
+      setImages([]);
     } catch (error) {
       console.error('Error saving product:', error);
       setStatus(
@@ -125,7 +149,7 @@ const AddNewProduct = () => {
     setPrice('');
     setCategory("men's clothing");
     setCount('');
-    setImage('');
+    setImages([]);
   };
 
   return (
@@ -147,7 +171,7 @@ const AddNewProduct = () => {
             width: "70px",
             position: "relative",
             left: "-530px",
-            bottom: "30px"
+            bottom: "20px"
           }}
         >
           Back
@@ -159,9 +183,74 @@ const AddNewProduct = () => {
             onDrop={handleImageDrop}
             onDragOver={(e) => e.preventDefault()}
             onClick={() => fileInputRef.current.click()}
+            style={{ minHeight: images.length > 0 ? "auto" : "300px" }}
           >
-            {image ? (
-              <img src={image} alt="Uploaded" className="uploaded-image" />
+            {images.length > 0 ? (
+              <div style={{ width: "100%" }}>
+                <div style={{ 
+                  display: "grid", 
+                  gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))", 
+                  gap: "10px",
+                  padding: "10px"
+                }}>
+                  {images.map((img, index) => (
+                    <div key={index} style={{ position: "relative" }}>
+                      <img 
+                        src={img} 
+                        alt={`Upload ${index + 1}`} 
+                        style={{ 
+                          width: "100%", 
+                          height: "120px", 
+                          objectFit: "cover",
+                          borderRadius: "8px"
+                        }} 
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveImage(index);
+                        }}
+                        style={{
+                          position: "absolute",
+                          top: "5px",
+                          right: "5px",
+                          background: "red",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "50%",
+                          width: "25px",
+                          height: "25px",
+                          cursor: "pointer",
+                          fontSize: "14px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        ×
+                      </button>
+                      {index === 0 && (
+                        <span style={{
+                          position: "absolute",
+                          bottom: "5px",
+                          left: "5px",
+                          background: "purple",
+                          color: "white",
+                          padding: "2px 8px",
+                          borderRadius: "4px",
+                          fontSize: "11px",
+                          fontWeight: "bold"
+                        }}>
+                          Main
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <p style={{ textAlign: "center", marginTop: "10px", color: "#666" }}>
+                  Click or drag to add more images
+                </p>
+              </div>
             ) : (
               <>
                 <svg
@@ -177,13 +266,14 @@ const AddNewProduct = () => {
                   />
                 </svg>
                 <p>Drag & Drop or click to upload</p>
-                <p className="file-info">PNG, JPG, GIF up to 10MB</p>
+                <p className="file-info">PNG, JPG, GIF up to 10MB (Multiple images supported)</p>
               </>
             )}
 
             <input
               type="file"
               accept="image/*"
+              multiple
               ref={fileInputRef}
               style={{ display: "none" }}
               onChange={handleFileChange}
@@ -265,11 +355,7 @@ const AddNewProduct = () => {
           </div>
         </div>
       </div>
-      <footer className="footer">
-        <div className="footer-content">
-          <p>©2024 Trendify Admin. All rights reserved.</p>
-        </div>
-      </footer>
+      
     </div>
   );
 };

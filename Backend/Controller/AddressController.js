@@ -7,6 +7,13 @@ export const addAddress = async (req, res) => {
         if (!fullName || !Address || !City || !postalCode || !PhoneNumber) {
             return res.status(400).json({ success: false, message: "All required fields must be provided." });
         }
+
+        if ( postalCode < 100000 || postalCode > 999999) {
+            return res.status(400).json({ success: false, message: "Postal Code must be a valid 6-digit number." });
+        }
+        if (!/^\d{10}$/.test(PhoneNumber)) {
+            return res.status(400).json({ success: false, message: "Phone Number must be a valid 10-digit number." });
+        }
         const newAddress = new addressmodel({
             userId: userId,
             fullName,
@@ -87,8 +94,6 @@ export const deleteAddress = async (req, res) => {
     try {
         const userId = req.user.id;
         const addressId = req.params.id;
-
-        
         const deletedAddress = await addressmodel.findOneAndDelete({ 
             _id: addressId, 
             userId: userId 

@@ -48,6 +48,7 @@ export async function forgotPassword(req, res) {
     const salt = await bcrypt.genSalt(10);
     const pinHash = await bcrypt.hash(pin.toString(), salt);
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+   
 
     await resetpin.create({ email, pinHash, expiresAt });
     const emailverify = await usermodel.findOne({email})

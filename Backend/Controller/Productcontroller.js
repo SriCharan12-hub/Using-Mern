@@ -7,6 +7,7 @@ export const addProduct = async (req, res) => {
             price,
             category,
             image,
+            images,
             count,
             description,
         } = req.body;
@@ -23,6 +24,11 @@ export const addProduct = async (req, res) => {
             return res.status(400).json({ message: "length of description should be btw 10-100" });
 
         }
+         if (!image && (!images || images.length === 0)) {
+            return res.status(400).json({ 
+                message: 'Please upload at least one image' 
+            });
+            }
 
         // Find the product with the highest 'id' to get the next available ID
         const lastProduct = await Product.findOne().sort({ id: -1 });
@@ -33,7 +39,8 @@ export const addProduct = async (req, res) => {
             title,
             price: price,
             category,
-            image,
+            image: image || (images && images[0]), // First image as main
+            images: images || [image], // Array of images
             count,
             description,
         });
@@ -52,16 +59,27 @@ export const addProduct = async (req, res) => {
 };
 
 export const getProducts = async (req, res) => {
-    try {
-        const products = await Product.find({});
-        if (!products) {
-            return res.status(404).json({ message: "No products found." });
-        }
-        res.status(200).json({ message: "Products fetched successfully", products });
-    } catch (error) {
-        console.error("Error fetching products:", error);
-        res.status(500).json({ message: "Server error", error: error.message });
+  try {
+    const products = await Product.find({});
+    
+    // Debug log (remove after testing)
+    if (products.length > 0) {
+      console.log("Sample product images:", {
+        id: products[0].id,
+        image: products[0].image,
+        images: products[0].images,
+        imagesCount: products[0].images?.length
+      });
     }
+
+    res.status(200).json({ products });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ 
+      message: 'Failed to fetch products',
+      error: error.message 
+    });
+  }
 };
 
 

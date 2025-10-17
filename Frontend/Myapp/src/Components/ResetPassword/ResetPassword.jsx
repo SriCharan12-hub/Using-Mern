@@ -47,7 +47,7 @@ export default function ResetPasswordFinal() {
 
         try {
            
-            const backendUrl = 'http://localhost:8000/user/resetpassword'; 
+            const backendUrl = `${import.meta.env.VITE_API_URL}/user/resetpassword`; 
             
             
             const res = await axios.put(backendUrl, {

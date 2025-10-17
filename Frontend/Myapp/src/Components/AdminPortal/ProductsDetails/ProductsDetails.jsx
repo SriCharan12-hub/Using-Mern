@@ -18,7 +18,7 @@ const ProductsDetails = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/products/get', {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/get`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 // Assuming the API response structure is { data: { products: [...] } }
@@ -42,9 +42,10 @@ const ProductsDetails = () => {
 
         try {
             // Note: Use product.id or product._id based on your MongoDB schema
-            const response = await axios.delete(`http://localhost:8000/products/${productId}`, {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/products/${productId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            console.log(response)
 
             if (response.status === 200) {
                 // Update state: filter out the deleted product using its ID
@@ -58,7 +59,7 @@ const ProductsDetails = () => {
     };
 
     // Filter products based on the search query
-    const filteredProducts = products.filter(product => {
+    const filteredProducts = products?.filter(product => {
         const query = searchQuery.toLowerCase().trim();
         if (!query) return true; // Show all products if search is empty
 
@@ -164,11 +165,7 @@ const ProductsDetails = () => {
                     </div>
                 </div>
 
-                <footer className="footer">
-                    <div className="footer-content">
-                        <p>©2024 Trendify Admin. All rights reserved.</p>
-                    </div>
-                </footer>
+               
             </div>
         </div>
     );

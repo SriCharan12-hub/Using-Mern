@@ -201,10 +201,10 @@ export const googleLogin = async (req, res) => {
 
 export const resetpassword = async (req, res) => {
     try {
-        // FIX: Ensure you are destructuring the exact name sent by the frontend (confirmpassword)
+       
         const { email, password, confirmpassword } = req.body; 
 
-        // Added check for email for robustness
+        
         if (!confirmpassword || !password || !email) { 
             return res.status(400).json({ message: "Fill all the details" });
         }
@@ -233,7 +233,7 @@ export const resetpassword = async (req, res) => {
         
         const hashedpassword = await bcrypt.hash(password, 10);
         
-        // CRITICAL FIX: Use user._id, which you found using the email
+      
         const updateuser = await usermodel.findByIdAndUpdate(
             user._id, // <-- THIS IS THE FIX
             { password: hashedpassword },

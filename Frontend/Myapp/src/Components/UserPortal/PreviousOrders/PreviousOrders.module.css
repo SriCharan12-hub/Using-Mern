@@ -1,0 +1,293 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  /* width: 700px; */
+  margin: 20px auto;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #7f8c8d;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.emptyState h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.emptyState p {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.shopButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.shopButton:hover {
+  transform: translateY(-2px);
+}
+
+.ordersList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.orderCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  /* width: 111% */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.orderCard:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.orderId {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.orderDate {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.orderStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusProcessing {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.statusShipped {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.statusDelivered {
+  background: #d4edda;
+  color: #155724;
+}
+
+.statusCancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.paymentStatus {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.orderSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.itemCount {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.totalAmount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.orderActions {
+  display: flex;
+  gap: 10px;
+}
+
+.detailsButton, .cancelButton {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.detailsButton {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.detailsButton:hover {
+  background: #bdc3c7;
+}
+
+.cancelButton {
+  background: #e74c3c;
+  color: white;
+}
+
+.cancelButton:hover {
+  background: #c0392b;
+}
+
+.orderDetails {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #ecf0f1;
+}
+
+.itemsList {
+  margin-bottom: 20px;
+}
+
+.itemsList h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.productImage {
+  width: 70px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.productInfo {
+  flex: 1;
+}
+
+.productName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.productDetails {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+.itemTotal {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.shippingInfo, .paymentInfo {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.shippingInfo h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.shippingInfo p, .paymentInfo p {
+  margin: 5px 0;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .orderHeader {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .orderStatus {
+    align-items: flex-start;
+  }
+
+  .orderItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productImage {
+    width: 40%;
+    height: 100%;
+  }
+
+  .itemTotal {
+    align-self: center;
+  }
+}

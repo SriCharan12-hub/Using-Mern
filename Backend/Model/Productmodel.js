@@ -12,6 +12,9 @@ const productSchema = new mongoose.Schema({
         // required: true,
         trim: true 
     },
+    images:{
+        type: [String]
+    },
     
     title: {
         type: String,

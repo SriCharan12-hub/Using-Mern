@@ -90,15 +90,15 @@ export const removeFromCart = async (req, res) => {
 };
 
 // Clear the entire cart for a user
-export const clearCart = async (req, res) => {
-    try {
-        const userId = req.user.id;
-        await Cart.findOneAndDelete({ userId });
-        res.status(200).json({ message: 'Cart cleared' });
-    } catch (err) {
-        res.status(500).json({ message: 'Failed to clear cart', error: err.message });
-    }
-};
+// export const clearCart = async (req, res) => {
+//     try {
+//         const userId = req.user.id;
+//         await Cart.findOneAndDelete({ userId });
+//         res.status(200).json({ message: 'Cart cleared' });
+//     } catch (err) {
+//         res.status(500).json({ message: 'Failed to clear cart', error: err.message });
+//     }
+// };
 
 // Update item quantity
 export const updateQuantity = async (req, res) => {

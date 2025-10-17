@@ -248,7 +248,7 @@ tr{
 }
 
 .edit-link {
-  color: #007bff;
+  color: #007bff !important;
 }
 
 .edit-link:hover {
@@ -256,7 +256,7 @@ tr{
 }
 
 .delete-link {
-  color: #dc3545;
+  color: #dc3545 !important;
 }
 
 .delete-link:hover {

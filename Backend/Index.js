@@ -2,11 +2,14 @@ import express from "express"
 import connect from "./Connection/Connect.js"
 import dotenv  from "dotenv"
 import route from "./Route/Userroute.js"
+
 import cors from "cors"
+import path from "path"
 
 
 dotenv.config()
 const app=express()
+
 app.use(express.json())
 app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"]
@@ -19,7 +22,13 @@ app.use((req, res, next) => {
     res.setHeader('Cross-Origin-Embedder-Policy', 'unsafe-none');
     next();
 });
+app.use(cors({
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    credentials: true
+}));
+
 app.use(route)
+
 
 
 const port=process.env.port 

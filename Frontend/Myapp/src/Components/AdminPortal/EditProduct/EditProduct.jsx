@@ -113,7 +113,7 @@ const EditProduct = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/products/${productToEdit.id}`,
+        `${import.meta.env.VITE_API_URL}/products/${productToEdit.id}`,
         updatedData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -270,11 +270,7 @@ const EditProduct = () => {
         </div>
       </div>
 
-      <footer className="footer">
-        <div className="footer-content">
-          <p>©2024 Trendify Admin. All rights reserved.</p>
-        </div>
-      </footer>
+     
     </div>
   );
 };

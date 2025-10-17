@@ -12,7 +12,6 @@ import UserProducts from "./Components/UserPortal/UserProducts/UserProducts";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import Navbar from "./Components/Navbar/Navbar";
 import UserDetails from "./Components/UserDetails/userDetails";
-
 import Wishlist from "./Components/UserPortal/Wishlist/Wishlist";
 import MensFashion from "./Components/UserPortal/MensFashion/MensFashion";
 import WomensFashion from "./Components/UserPortal/WomensFashion/WomensFashion";
@@ -20,7 +19,7 @@ import Accessories from "./Components/UserPortal/Accessories/Accessories";
 import AdminDashboard from "./Components/AdminPortal/AdminDashboard/AdminDashboard";
 import OrderConfirmed from "./Components/UserPortal/OrderConfirmed/OrderConfirmed";
 import AdminNavbar from "./Components/AdminPortal/AdminNavbar/AdminNavbar";
-import NavSearch from "./Components/AdminPortal/NavSearch/NavSearch";
+
 import PageNotFound from "./Components/PageNotFound/PageNotFound";
 
 import Reset from "./Components/ResetPassword/ResetPassword";
@@ -31,20 +30,45 @@ import Address from "./Components/UserPortal/Address/Address";
 
 import { useState } from "react";
 import AdminDetails from "./Components/AdminPortal/AdminDetails/AdminDetails";
-
+import PreviousOrders from "./Components/UserPortal/PreviousOrders/PreviousOrders";
+import Feedback from "./Components/Feedback/Feedback";
+import FeedbackResponse from "./Components/Feedback/FeedbackResponse";
 import UserProtectedRoute from "./UserProtectedRoute";
+import AdminAnalytics from "./Components/AdminPortal/AdminAnalytical/AdminAnalytical";
+import Footer from "./Components/Footer/Footer";
+import { useLocation } from "react-router-dom";
+import ProductDetailView from "./Components/UserPortal/ProductDetailedView/ProductDetailedView";
 
 function App() {
   const [showConfirm, setShowConfirm] = useState(false);
+  const location = useLocation()
 
-  // console.log(window?.location?.pathname?.includes('/admin'), "admin");
+    const hideNavFooterPaths = [
+    "/login",
+    "/",
+    "/forgot",
+    "/verify",
+    "/reset",
+    "/cart"
+  ];
+    const hideNavFooter = hideNavFooterPaths.includes(location.pathname)
+
   
   return(
     <>
 
-  {
-    window?.location?.pathname?.includes('/admin') ? <AdminNavbar showConfirm={showConfirm} setShowConfirm={setShowConfirm}/> : <Navbar showConfirm={showConfirm} setShowConfirm={setShowConfirm}/>
-  }
+  
+   {
+  location.pathname !== '/login' && 
+  location.pathname !== '/' && (
+    location.pathname.includes('/admin')
+      ? <AdminNavbar showConfirm={showConfirm} setShowConfirm={setShowConfirm} />
+      : <Navbar showConfirm={showConfirm} setShowConfirm={setShowConfirm} />
+  )
+}
+
+
+   
 
 
   <Routes>
@@ -62,7 +86,7 @@ function App() {
       <Route path='/cart' element={<UserProtectedRoute><ShoppingCart/></UserProtectedRoute>}></Route>
 
       <Route path='/userdashboard' element={<UserProtectedRoute><UserDashboard showConfirm={showConfirm} setShowConfirm={setShowConfirm}/></UserProtectedRoute>}>
-             <Route index element={<h2>User Dashboard Overview</h2>} />
+        <Route index element={<h2>User Dashboard Overview</h2>} />
         <Route path="wishlist" element={<Wishlist />} />
         <Route path="userdetails" element={<UserDetails />} />
       </Route>
@@ -73,11 +97,13 @@ function App() {
 
       <Route path='/orderconfirmed' element={<UserProtectedRoute><OrderConfirmed/></UserProtectedRoute>}></Route>
 
-      <Route path='/navsearch' element={<UserProtectedRoute><NavSearch/></UserProtectedRoute>}></Route>
+      {/* <Route path='/navsearch' element={<UserProtectedRoute><NavSearch/></UserProtectedRoute>}></Route> */}
 
       <Route path='*' element={<UserProtectedRoute><PageNotFound/></UserProtectedRoute>}></Route>
 
       <Route path='/homepage' element={<UserProtectedRoute><HomePage/></UserProtectedRoute>}></Route>
+
+      <Route path='/userdashboard/orders' element={<UserProtectedRoute><PreviousOrders/></UserProtectedRoute>}></Route>
 
       <Route path='/userproducts' element={<UserProtectedRoute><UserProducts/></UserProtectedRoute>}></Route>
 
@@ -91,8 +117,25 @@ function App() {
 
       <Route path='/address' element={<UserProtectedRoute><Address/></UserProtectedRoute>}></Route>
 
-      <Route path='/navbar' element={<Navbar/>} showConfirm={showConfirm} setShowConfirm={setShowConfirm}></Route>  
+  <Route path="/product/:productId" element={<UserProtectedRoute><ProductDetailView/></UserProtectedRoute>}></Route>
+
+  <Route path="/feedback" element={<UserProtectedRoute><Feedback /></UserProtectedRoute>}></Route>
+
+     
+
+      {/* <Route path='/navbar' element={<Navbar/>} showConfirm={showConfirm} setShowConfirm={setShowConfirm}></Route>   */}
       
+
+
+
+
+
+
+
+
+
+
+
 
  <Route path='/admin/products' element={<AdminProtectedRoute><ProductsDetails/></AdminProtectedRoute>}></Route>
 
@@ -109,10 +152,12 @@ function App() {
 
       <Route path='/admin/admin-details' element={<AdminProtectedRoute><AdminDetails/></AdminProtectedRoute>}></Route>
 
+      <Route path='/admin/adminanalytics' element={<AdminProtectedRoute><AdminAnalytics/></AdminProtectedRoute>}></Route>
+
+      <Route path='/admin/feedback' element={<AdminProtectedRoute><FeedbackResponse/></AdminProtectedRoute>}></Route>
 
   </Routes>
-  
-
+  {!hideNavFooter && <Footer />}
     </>
   )
 }

@@ -279,6 +279,9 @@
     gap: 15px;
     margin-bottom: 20px;
 }
+.payment-group{
+    display: none !important;
+}
 
 .radio-label {
     flex-grow: 1;

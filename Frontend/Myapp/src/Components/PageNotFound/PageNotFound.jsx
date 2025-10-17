@@ -1,11 +1,32 @@
 import "./PageNotFound.css"
+import {useNavigate} from "react-router-dom"
 
 function PageNotFound() {
+  const navigate = useNavigate()
   return (
     <div className='PageNotFound-container'>
-      <img src="https://res.cloudinary.com/dedmnd9gb/image/upload/v1751982625/Group_7520_p6ioma.png"/>
-      <h1>Page Not Found</h1>
-      <p className='Page-para'>We are Sorry, the page you requested could not be found</p>
+     <section className="page_404">
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="col-sm-10 col-sm-offset-1 text-center">
+              <div className="four_zero_four_bg">
+                <h1 className="fourerror">404</h1>
+              </div>
+
+              <div className="contant_box_404">
+                <h3 className="h2">Looks like you're lost</h3>
+                <p>The page you are looking for is not available!</p>
+
+                <a href="/" className="link_404" onClick={()=>navigate('/homepage')}> 
+                  Go to Home
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     </div>
   )
 }
