@@ -203,8 +203,6 @@ export const resetpassword = async (req, res) => {
     try {
        
         const { email, password, confirmpassword } = req.body; 
-
-        
         if (!confirmpassword || !password || !email) { 
             return res.status(400).json({ message: "Fill all the details" });
         }

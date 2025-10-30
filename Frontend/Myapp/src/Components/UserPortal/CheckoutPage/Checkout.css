@@ -16,6 +16,315 @@
     --color-delete: #dc3545;
     --shadow-subtle: 0 0 15px rgba(0, 0, 0, 0.05);
 }
+/* Empty Cart Animation Styles - Add these to your existing Checkout.css */
+
+.empty-cart-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.empty-cart-animation {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 30px;
+  animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.empty-cart-icon {
+  width: 120px;
+  height: 120px;
+  color: #8b5cf6;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.3));
+}
+
+.cart-body {
+  animation: cartBounce 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.cart-base {
+  animation: cartShake 2s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.dot {
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+.dot-1 {
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  animation-delay: 0.3s;
+}
+
+/* Floating lines animation */
+.empty-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.line-1 {
+  width: 60px;
+  top: 20%;
+  left: -10%;
+  animation: lineFloat1 3s ease-in-out infinite;
+}
+
+.line-2 {
+  width: 80px;
+  top: 50%;
+  right: -15%;
+  animation: lineFloat2 3.5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.line-3 {
+  width: 50px;
+  bottom: 25%;
+  left: -5%;
+  animation: lineFloat3 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.empty-cart-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 12px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.empty-cart-description {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 30px;
+  max-width: 400px;
+  animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+.shop-now-btn {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  animation: fadeInUp 0.6s ease-out 0.4s backwards;
+}
+
+.shop-now-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+.shop-now-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+}
+
+/* Animations */
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes cartBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes cartShake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes lineFloat1 {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px) translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100px) translateY(-30px);
+  }
+}
+
+@keyframes lineFloat2 {
+  0% {
+    opacity: 0;
+    transform: translateX(20px) translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(30px);
+  }
+}
+
+@keyframes lineFloat3 {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px) translateY(10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(80px) translateY(-40px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Empty Cart */
+@media (max-width: 768px) {
+  .empty-cart-message {
+    min-height: 50vh;
+    padding: 30px 15px;
+  }
+
+  .empty-cart-animation {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 25px;
+  }
+
+  .empty-cart-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  .empty-cart-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .empty-cart-description {
+    font-size: 14px;
+    margin-bottom: 25px;
+    max-width: 320px;
+  }
+
+  .shop-now-btn {
+    padding: 12px 28px;
+    font-size: 15px;
+  }
+
+  .line-1 {
+    width: 50px;
+  }
+
+  .line-2 {
+    width: 60px;
+  }
+
+  .line-3 {
+    width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .empty-cart-message {
+    min-height: 45vh;
+    padding: 25px 10px;
+  }
+
+  .empty-cart-animation {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+  }
+
+  .empty-cart-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .empty-cart-title {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .empty-cart-description {
+    font-size: 13px;
+    margin-bottom: 20px;
+    max-width: 280px;
+  }
+
+  .shop-now-btn {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+}
 
 * {
     box-sizing: border-box;

@@ -18,6 +18,7 @@ const MensFashion = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPriceRange, setSelectedPriceRange] = useState("All Prices");
   const [sortOrder, setSortOrder] = useState("Newest Arrivals");
+  const [searchQuery, setSearchQuery] = useState("");
   const productsPerPage = 4;
   
   const dispatch = useDispatch();
@@ -30,15 +31,25 @@ const MensFashion = () => {
       console.warn("Failed to read cart from localStorage", e);
     }
   }, []);
-   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedColor, setSelectedColor] = useState('');
-  
+
+  // Listen for navbar search events
+  useEffect(() => {
+    const handleSiteSearch = (event) => {
+      const query = event.detail?.query || '';
+      setSearchQuery(query);
+    };
+
+    window.addEventListener('site-search', handleSiteSearch);
+
+    return () => {
+      window.removeEventListener('site-search', handleSiteSearch);
+    };
+  }, []);
 
   // Reset Filters function
   const resetFilters = () => {
-    setSelectedCategory('All');
-    setSelectedColor('');
-    setSelectedPriceRange(34000);
+    setSelectedPriceRange("All Prices");
+    setSortOrder("Newest Arrivals");
   };
 
   useEffect(() => {
@@ -85,18 +96,34 @@ const MensFashion = () => {
     fetchData();
   }, []);
 
+  // Combined filtering and sorting effect
   useEffect(() => {
     let list = [...products];
+    
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      list = list.filter((p) =>
+        p.title.toLowerCase().includes(query) ||
+        (p.description && p.description.toLowerCase().includes(query))
+      );
+    }
+    
+    // Apply price range filter
     if (selectedPriceRange !== "All Prices") {
       const [min, max] = selectedPriceRange.split("-").map(Number);
       list = list.filter((p) => p.price >= min && p.price <= max);
     }
-    if (sortOrder === "Low to High") list.sort((a, b) => a.price - b.price);
-    else if (sortOrder === "High to Low")
+    
+    // Apply sorting
+    if (sortOrder === "Low to High") {
+      list.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === "High to Low") {
       list.sort((a, b) => b.price - a.price);
+    }
     setFilteredProducts(list);
     setCurrentPage(1);
-  }, [products, selectedPriceRange, sortOrder]);
+  }, [products, selectedPriceRange, sortOrder, searchQuery]);
 
   const isProductInWishlist = (id) =>
     wishlist.some((item) => String(item.productId) === String(id));
@@ -208,7 +235,6 @@ const MensFashion = () => {
   };
 
   const handleProductClick = (productId) => navigate(`/product/${productId}`);
-
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
@@ -223,6 +249,7 @@ const MensFashion = () => {
   };
 
   const renderPageNumbers = () =>
+    // in map(_) _ is used to ignore first argument
     Array.from({ length: totalPages }).map((_, i) => (
       <button
         key={i + 1}
@@ -248,46 +275,92 @@ const MensFashion = () => {
         <div className="content-side">
           <button className="back-btn" onClick={()=>navigate('/homepage')}>Back</button>
           <aside
-                        className="filters-sidebar"
-                        style={{ marginTop: '40px', marginLeft: '0px' }}
-                    >
-                        <h2>Filters</h2>
-                        <div className="filter-group">
-                            <label htmlFor="price">Price Range</label>
-                            <select
-                                id="price"
-                                value={selectedPriceRange}
-                                onChange={(e) => setSelectedPriceRange(e.target.value)}
-                            >
-                                <option>All Prices</option>
-                                <option value="0-100">0 - ₹100</option>
-                                <option value="101-500">₹101 - ₹500</option>
-                                <option value="501-1000">₹501 - ₹1000</option>
-                                <option value="1001-999999">Over ₹1000</option>
-                            </select>
-                        </div>
-                        <div className="filter-group">
-                            <label htmlFor="sort">Sort by:</label>
-                            <select
-                                id="sort"
-                                value={sortOrder}
-                                onChange={(e) => setSortOrder(e.target.value)}
-                            >
-                                <option value="Newest Arrivals">Newest Arrivals</option>
-                                <option value="Low to High">Price: Low to High</option>
-                                <option value="High to Low">Price: High to Low</option>
-                            </select>
-                        </div>
-                    </aside>
+            className="filters-sidebar"
+            style={{ marginTop: '-15px', marginLeft: '0px' }}
+          >
+            <h2>Filters</h2>
+
+            <div className="filter-group">
+              <label htmlFor="price">Price Range</label>
+              <select
+                id="price"
+                value={selectedPriceRange}
+                onChange={(e) => setSelectedPriceRange(e.target.value)}
+              >
+                <option>All Prices</option>
+                <option value="0-100">0 - ₹100</option>
+                <option value="101-500">₹101 - ₹500</option>
+                <option value="501-1000">₹501 - ₹1000</option>
+                <option value="1001-999999">Over ₹1000</option>
+              </select>
+            </div>
+            
+            <div className="filter-group">
+              <label htmlFor="sort">Sort by:</label>
+              <select
+                id="sort"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="Newest Arrivals">Newest Arrivals</option>
+                <option value="Low to High">Price: Low to High</option>
+                <option value="High to Low">Price: High to Low</option>
+              </select>
+            </div>
+
+            {/* Reset Filters Button */}
+            <button
+              onClick={resetFilters}
+              style={{
+                width: '100%',
+                padding: '10px',
+                marginTop: '15px',
+                background: '#333',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '14px'
+              }}
+            >
+              Reset All Filters
+            </button>
+          </aside>
         </div>
 
         <main className="product-listing">
           <div className="listing-header">
             <h1 className="category-title">Men's Fashion</h1>
+            {searchQuery && (
+              <p style={{ fontSize: '14px', color: '#666', marginTop: '5px' }}>
+                Showing results for: "{searchQuery}" ({filteredProducts.length} products)
+              </p>
+            )}
           </div>
           <div className="product-grid-new">
             {currentProducts.length === 0 ? (
-              <div className="no-products-container">No products</div>
+              <div className="no-products-container">
+                <div className="empty-box-animation">
+                  <div className="box">
+                    <div className="box-lid"></div>
+                    <div className="box-body"></div>
+                  </div>
+                  <div className="search-icon-float">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                      <circle cx="11" cy="11" r="8" stroke="#999" strokeWidth="2"/>
+                      <path d="M21 21L16.65 16.65" stroke="#999" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="no-products-title">
+                  {searchQuery ? `No products found for "${searchQuery}"` : "No products available"}
+                </h3>
+                <p className="no-products-subtitle">
+                  {searchQuery 
+                    ? "Try adjusting your search or filters" 
+                    : "Check back later for new arrivals"}
+                </p>
+              </div>
             ) : (
               currentProducts.map((product) => {
                 const inStock = Number(product.count) > 0;

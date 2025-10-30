@@ -56,7 +56,7 @@ flex-wrap: wrap;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
+  padding: 0.5rem !important;
   margin-top: 4rem;
   transition: transform 0.3s ease;
   height: 550px;
@@ -142,7 +142,7 @@ flex-wrap: wrap;
 
 .toggle-visibility {
   position: absolute;
-  right: 1.25rem;
+  right: 0.5rem !important;
   cursor: pointer;
   font-size: 1.25rem;
   color: #6c757d;
@@ -200,5 +200,19 @@ flex-wrap: wrap;
   .details-container {
     flex-direction: row;
     align-items: flex-start;
+    justify-content: center;
   }
+  .profile-card,.update-password-card{
+    height: 132vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+
+}
+@media (min-width:568px) {
+  .update-password-card{
+    height: 156vh;
+  }
+  
 }

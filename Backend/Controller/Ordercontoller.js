@@ -2,7 +2,7 @@ import ordermodel from '../Model/Ordermodel.js';
 import mongoose from 'mongoose';
 import Product from '../Model/Productmodel.js';
 import Cartmodel from '../Model/Cartmodel.js';
-import User from '../Model/Usermodel.js'; // Add this import
+import User from '../Model/Usermodel.js';
 
 
 export const placeOrder = async (req, res) => {
@@ -10,7 +10,6 @@ export const placeOrder = async (req, res) => {
     const {
         shippingDetails,
         paymentMethod,
-        // note: items will be taken from server-side cart
         totalAmount
     } = req.body;
     
@@ -25,32 +24,51 @@ export const placeOrder = async (req, res) => {
     session.startTransaction();
 
     try {
-        // Fetch the user's server-side cart and use it as the authoritative source
-        const cartDoc = await Cartmodel.findOne({ userId }).session(session);
+        // Fetch the user's server-side cart and populate productId
+        const cartDoc = await Cartmodel.findOne({ userId })
+            .populate('items.productId')
+            .session(session);
+        
         const cartItems = (cartDoc && Array.isArray(cartDoc.items)) ? cartDoc.items : [];
 
         if (!cartItems || cartItems.length === 0) {
             throw new Error('Cart is empty. Cannot place an order without items.');
         }
 
-        // Normalize product ids from cart items
-        const itemIds = cartItems.map(ci => String(ci.productId._id || ci.productId));
+        // Filter out invalid items (where productId doesn't exist or is null)
+        const validCartItems = cartItems.filter(item => {
+            if (!item.productId || !item.productId._id) {
+                console.warn('Skipping invalid cart item:', item);
+                return false;
+            }
+            return true;
+        });
+
+        if (validCartItems.length === 0) {
+            throw new Error('Cart contains no valid products. Please refresh your cart.');
+        }
+
+        // Extract product IDs (they're already populated)
+        const itemIds = validCartItems.map(ci => ci.productId._id);
         const productsInDB = await Product.find({ _id: { $in: itemIds } }).session(session);
 
         let calculatedSubtotal = 0;
         const orderItems = [];
 
-        for (const cartItem of cartItems) {
-            const productIdStr = String(cartItem.productId._id || cartItem.productId);
+        for (const cartItem of validCartItems) {
+            const productFromCart = cartItem.productId; // Already populated
+            const productIdStr = productFromCart._id.toString();
+            
+            // Double-check product exists in DB
             const productDB = productsInDB.find(p => p._id.toString() === productIdStr);
 
             if (!productDB) {
-                throw new Error(`Product not found: ${productIdStr}`);
+                throw new Error(`Product not found in database: ${productFromCart.title || productIdStr}`);
             }
 
             const quantity = Number(cartItem.quantity || 0);
             if (productDB.count < quantity) {
-                throw new Error(`Insufficient stock for product: ${productDB.title}`);
+                throw new Error(`Insufficient stock for product: ${productDB.title}. Available: ${productDB.count}, Requested: ${quantity}`);
             }
 
             calculatedSubtotal += productDB.price * quantity;
@@ -67,7 +85,7 @@ export const placeOrder = async (req, res) => {
         const calculatedTotal = calculatedSubtotal + shippingCost + taxes;
 
         if (Math.abs(calculatedTotal - totalAmount) > 0.1) {
-            throw new Error(`Price mismatch. Calculated total: ${calculatedTotal.toFixed(2)}`);
+            throw new Error(`Price mismatch. Calculated total: ${calculatedTotal.toFixed(2)}, Received: ${totalAmount.toFixed(2)}`);
         }
 
         const paymentStatus = paymentMethod === 'cod' ? 'Pending' : 'Paid';
@@ -146,8 +164,8 @@ export const getUserOrders = async (req, res) => {
         // Fetch orders and populate product details
         const orders = await ordermodel
             .find({ userId })
-            .populate('items.productId', 'title image price') // Populate product info
-            .sort({ createdAt: -1 }); // Most recent first
+            .populate('items.productId', 'title image price')
+            .sort({ createdAt: -1 });
 
         res.status(200).json({
             success: true,
@@ -254,11 +272,10 @@ export const cancelOrder = async (req, res) => {
 // GET all orders for admin (all users)
 export const getAllUserOrders = async (req, res) => {
     try {
-        // Fetch all orders and populate user and product details
         const orders = await ordermodel.find()
-            .populate('userId', 'username email phone') // Populate user info
-            .populate('items.productId', 'title price image') // Populate product info
-            .sort({ createdAt: -1 }); // Sort by newest first
+            .populate('userId', 'username email phone')
+            .populate('items.productId', 'title price image')
+            .sort({ createdAt: -1 });
 
         if (!orders || orders.length === 0) {
             return res.status(404).json({ 
@@ -290,19 +307,16 @@ export const getFilteredOrders = async (req, res) => {
         
         let filter = {};
 
-        // Filter by status
         if (status && status !== 'all') {
             filter.orderStatus = status;
         }
 
-        // Filter by date range
         if (startDate || endDate) {
             filter.createdAt = {};
             if (startDate) filter.createdAt.$gte = new Date(startDate);
             if (endDate) filter.createdAt.$lte = new Date(endDate);
         }
 
-        // Filter by specific user
         if (userId) {
             filter.userId = userId;
         }
@@ -312,7 +326,6 @@ export const getFilteredOrders = async (req, res) => {
             .populate('items.productId', 'title price image')
             .sort({ createdAt: -1 });
 
-        // Additional search by order ID or username
         let filteredOrders = orders;
         if (searchTerm) {
             filteredOrders = orders.filter(order => 
@@ -344,7 +357,6 @@ export const updateOrderStatus = async (req, res) => {
         const { orderId } = req.params;
         const { status } = req.body;
 
-        // Validate status
         const validStatuses = ['Processing', 'Shipped', 'Delivered', 'Cancelled'];
         if (!validStatuses.includes(status)) {
             return res.status(400).json({
@@ -412,12 +424,11 @@ export const getOrderByIdAdmin = async (req, res) => {
         console.error('Error fetching order details:', error);
         res.status(500).json({
             success: false,
-            message: 'Failed to fetch order details',
+            message: 'Failped to fetch order details',
             error: error.message
         });
     }
 };
-
 
 export const getOrderStatistics = async (req, res) => {
     try {
@@ -427,14 +438,12 @@ export const getOrderStatistics = async (req, res) => {
         const deliveredOrders = await ordermodel.countDocuments({ orderStatus: 'Delivered' });
         const cancelledOrders = await ordermodel.countDocuments({ orderStatus: 'Cancelled' });
 
-        // Calculate total revenue from delivered and shipped orders
         const orders = await ordermodel.find({ 
             orderStatus: { $in: ['Delivered', 'Shipped'] },
             paymentStatus: 'Paid'
         });
         const totalRevenue = orders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
 
-        // Get pending orders count
         const pendingOrders = await ordermodel.countDocuments({ 
             orderStatus: 'Processing',
             paymentStatus: 'Pending'

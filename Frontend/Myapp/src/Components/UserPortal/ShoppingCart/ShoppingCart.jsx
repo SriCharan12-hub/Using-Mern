@@ -177,7 +177,7 @@ const ShoppingCart = () => {
   return (
     <div className="cart-container">
       <button
-        className="back-btn"
+        className="back-btn2"
         onClick={() => {
           navigate("/homepage");
           window.scrollTo(0, 0);

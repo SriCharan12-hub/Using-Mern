@@ -22,6 +22,9 @@ export default function VerifyOtp() {
     try {
     
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/verify-otp`, { email, pin });
+      if (!email.endsWith("@gmail.com")) {
+        return setMessage("Please use a valid Gmail address.");
+      }
       setMessage(res.data.message || "OTP verified successfully! Redirecting...");
 
       if (res.status === 200){
@@ -42,7 +45,7 @@ export default function VerifyOtp() {
 
   return (
     <div className="verify-otp-page-container"> 
-    <button onClick={()=>navigate('/forgot')} style={{color:'white',backgroundColor:"purple",padding:"10px",borderRadius:"5px",borderWidth:"0px",marginRight:"10px",cursor:"pointer"}}>Back</button>
+    <button onClick={()=>navigate('/forgot')} className="Verify-back">Back</button>
       <div className="verify-otp-card"> 
         <h2 className="verify-otp-header">Verify OTP</h2>
         <p className="verify-otp-subtext">
@@ -66,12 +69,12 @@ export default function VerifyOtp() {
             <input
               className="form-input"
               type="text"
-              placeholder="Enter 6-digit OTP"
+              placeholder="Enter 4-digit OTP"
               value={pin}
               onChange={(e) => setPin(e.target.value)}
               required
               disabled={loading}
-              maxLength={6} // OTPs are typically 6 digits
+              maxLength={4} // OTPs are typically 6 digits
             />
           </div>
           

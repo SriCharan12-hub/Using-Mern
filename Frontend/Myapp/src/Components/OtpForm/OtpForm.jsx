@@ -18,6 +18,9 @@ export default function ForgotPassword() {
     
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/forgot-password`, { email });
+      if (!email.endsWith("@gmail.com")) {
+        return setMessage("Please use a valid Gmail address.");
+      }
       
 
       setMessage(res.data.message || "OTP sent successfully. Check your email.");
@@ -38,7 +41,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="forgot-password-page-container"> 
-    <button onClick={()=>navigate('/login')} style={{color:'white',backgroundColor:"purple",padding:"10px",borderRadius:"5px",borderWidth:"0px",marginRight:"10px",cursor:"pointer"}}>Back</button>
+    <button onClick={()=>navigate('/login')} className="Verify-back">Back</button>
       <div className="forgot-password-card"> 
         <h2 className="forgot-password-header">Forgot Password</h2>
         <p className="forgot-password-subtext">

@@ -50,7 +50,9 @@ const FeedbackResponse = () => {
                 return;
             }
 
-            const params = {};
+            const params = {
+                adminView: 'true'  // Added to fetch all feedbacks (admin view)
+            };
             
             if (filter && filter !== 'all') {
                 params.status = filter;

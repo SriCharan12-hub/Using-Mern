@@ -8,6 +8,10 @@
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  background-image: url("https://i.pinimg.com/736x/0a/be/92/0abe9229c939b8361f2d8a1085c3be0d.jpg");
+  background-repeat:round;
+  background-size:cover;
+  background-blend-mode: saturation;
 }
 
 .login-card {

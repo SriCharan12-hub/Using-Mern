@@ -19,7 +19,7 @@ import Accessories from "./Components/UserPortal/Accessories/Accessories";
 import AdminDashboard from "./Components/AdminPortal/AdminDashboard/AdminDashboard";
 import OrderConfirmed from "./Components/UserPortal/OrderConfirmed/OrderConfirmed";
 import AdminNavbar from "./Components/AdminPortal/AdminNavbar/AdminNavbar";
-
+import UserFeedback from "./Components/UserPortal/UserFeedBack/UserFeedBack";
 import PageNotFound from "./Components/PageNotFound/PageNotFound";
 
 import Reset from "./Components/ResetPassword/ResetPassword";
@@ -53,6 +53,17 @@ function App() {
   ];
     const hideNavFooter = hideNavFooterPaths.includes(location.pathname)
 
+     const hideNavPaths = [
+    "/login",
+    "/",
+    "/forgot",
+    "/verify",
+    "/reset",
+  ];
+    const hideNav = hideNavPaths.includes(location.pathname)
+
+    
+
   
   return(
     <>
@@ -63,7 +74,7 @@ function App() {
   location.pathname !== '/' && (
     location.pathname.includes('/admin')
       ? <AdminNavbar showConfirm={showConfirm} setShowConfirm={setShowConfirm} />
-      : <Navbar showConfirm={showConfirm} setShowConfirm={setShowConfirm} />
+      : !hideNav && <Navbar showConfirm={showConfirm} setShowConfirm={setShowConfirm} />
   )
 }
 
@@ -120,6 +131,8 @@ function App() {
   <Route path="/product/:productId" element={<UserProtectedRoute><ProductDetailView/></UserProtectedRoute>}></Route>
 
   <Route path="/feedback" element={<UserProtectedRoute><Feedback /></UserProtectedRoute>}></Route>
+
+  <Route path="/userfeedback" element={<UserProtectedRoute><UserFeedback /></UserProtectedRoute>}></Route>
 
      
 

@@ -10,11 +10,13 @@ const UserOrders = () => {
   const [error, setError] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
   
   // Filter states
   const [statusFilter, setStatusFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [dateFilter, setDateFilter] = useState('all');
+  
 
   useEffect(() => {
     fetchAllOrders();
@@ -23,6 +25,7 @@ const UserOrders = () => {
   useEffect(() => {
     applyFilters();
   }, [orders, statusFilter, searchTerm, dateFilter]);
+  
 
   const fetchAllOrders = async () => {
     try {
@@ -46,6 +49,7 @@ const UserOrders = () => {
       setLoading(false);
     }
   };
+ 
 
   // Calculate statistics dynamically from filtered orders
   const calculateStatistics = () => {
@@ -131,6 +135,7 @@ const UserOrders = () => {
   };
 
   const viewOrderDetails = (order) => {
+    console.log(order)
     setSelectedOrder(order);
     setShowModal(true);
   };
@@ -351,7 +356,7 @@ const UserOrders = () => {
                 <p><strong>Order ID:</strong> {selectedOrder._id}</p>
                 <p><strong>Customer:</strong> {selectedOrder.userId?.username}</p>
                 <p><strong>Email:</strong> {selectedOrder.userId?.email}</p>
-                <p><strong>Phone:</strong> {selectedOrder.userId?.phone || 'N/A'}</p>
+                
                 <p><strong>Date:</strong> {formatDate(selectedOrder.createdAt)}</p>
                 <p><strong>Payment Method:</strong> {selectedOrder.paymentMethod?.toUpperCase()}</p>
                 <p><strong>Payment Status:</strong> 
@@ -374,14 +379,14 @@ const UserOrders = () => {
                 </p>
               </div>
 
-              <div className={styles.shippingInfo}>
+            <div className={styles.shippingInfo}>
                 <h4>Shipping Address</h4>
                 <p><strong>Name:</strong> {selectedOrder.shippingDetails?.fullName || 'N/A'}</p>
-                <p><strong>Address:</strong> {selectedOrder.shippingDetails?.address || 'N/A'}</p>
-                <p><strong>City:</strong> {selectedOrder.shippingDetails?.city || 'N/A'}</p>
-                <p><strong>State:</strong> {selectedOrder.shippingDetails?.state || 'N/A'}</p>
-                <p><strong>Zip Code:</strong> {selectedOrder.shippingDetails?.zipCode || 'N/A'}</p>
-                <p><strong>Phone:</strong> {selectedOrder.shippingDetails?.phone || 'N/A'}</p>
+                <p><strong>Address:</strong> {selectedOrder.shippingDetails?.Address || 'N/A'}</p>
+                <p><strong>City:</strong> {selectedOrder.shippingDetails?.City || 'N/A'}</p>
+                
+                <p><strong>Zip Code:</strong> {selectedOrder.shippingDetails?.postalCode || 'N/A'}</p>
+                <p><strong>PhoneNumber:</strong> {selectedOrder.shippingDetails?.PhoneNumber || 'N/A'}</p>
               </div>
 
               <div className={styles.itemsList}>

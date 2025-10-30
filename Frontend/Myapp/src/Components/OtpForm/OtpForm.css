@@ -5,10 +5,59 @@
     align-items: flex-start; /* Align to the top of the viewport */
     min-height: 100vh; /* Occupy full viewport height */
     width: 100%; /* Occupy full viewport width */
-    padding: 60px 20px; /* Add padding for breathing room */
+    padding: 50px 20px; /* Add padding for breathing room */
     background-color: #f4f7f9; /* Light background for contrast */
     box-sizing: border-box;
-     margin-top: 30px;
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease-in-out;
+    position: relative; /* For absolute positioning of back button */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Back Button - Top Left Position */
+.Verify-back {
+    position: fixed;
+    top: 90px;
+    left: 30px;
+    background-color: #6c2c91;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(108, 44, 145, 0.3);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.Verify-back:hover {
+    background-color: #5a2477;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 44, 145, 0.4);
+}
+
+.Verify-back:active {
+    transform: translateY(0);
+}
+
+/* Optional: Add an arrow icon before text */
+.Verify-back::before {
+    content: '←';
+    font-size: 18px;
+    font-weight: bold;
 }
 
 /* 2. Centered Form Card */
@@ -20,7 +69,19 @@
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-   
+    animation: slideUp 0.6s ease-out;
+    z-index: 999;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .forgot-password-header {
@@ -36,6 +97,7 @@
     color: #777;
     margin-bottom: 25px;
     font-size: 14px;
+    line-height: 1.5;
 }
 
 /* 3. Form Styling */
@@ -59,6 +121,10 @@
     outline: none;
 }
 
+.form-input::placeholder {
+    color: #aaa;
+}
+
 /* 4. Button Styling */
 .submit-button {
     width: 100%;
@@ -70,16 +136,22 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .submit-button:hover:not(:disabled) {
     background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.submit-button:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 .submit-button:disabled {
     background-color: #a0c4ff;
     cursor: not-allowed;
+    opacity: 0.7;
 }
 
 /* 5. Message Feedback */
@@ -91,6 +163,18 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 1.4;
+    animation: fadeInMessage 0.4s ease-in-out;
+}
+
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .message.success {
@@ -103,4 +187,389 @@
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
+}
+
+/* 6. Back to Login Link */
+.back-to-login {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+.back-to-login a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.back-to-login a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ============================================ */
+
+/* Large Screens (1200px and above) */
+@media (min-width: 1200px) {
+    .forgot-password-card {
+        max-width: 450px;
+        padding: 40px;
+    }
+
+    .forgot-password-header {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .forgot-password-subtext {
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+
+    .form-input {
+        padding: 14px 16px;
+        font-size: 17px;
+    }
+
+    .submit-button {
+        padding: 14px;
+        font-size: 17px;
+    }
+
+    .message {
+        padding: 16px;
+        font-size: 15px;
+    }
+
+    .Verify-back {
+        top: 100px;
+        left: 40px;
+        padding: 14px 28px;
+        font-size: 16px;
+    }
+}
+
+/* Medium Screens (768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .forgot-password-page-container {
+        padding: 50px 20px;
+        margin-top: 25px;
+    }
+
+    .forgot-password-card {
+        max-width: 420px;
+        padding: 35px;
+    }
+
+    .forgot-password-header {
+        font-size: 26px;
+    }
+
+    .forgot-password-subtext {
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    .form-input {
+        padding: 13px 15px;
+        font-size: 16px;
+    }
+
+    .submit-button {
+        padding: 13px;
+        font-size: 16px;
+    }
+
+    .Verify-back {
+        top: 95px;
+        left: 25px;
+        padding: 12px 22px;
+        font-size: 15px;
+    }
+}
+
+/* Tablet Screens (481px to 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .forgot-password-page-container {
+        padding: 40px 20px;
+        margin-top: 20px;
+    }
+
+    .forgot-password-card {
+        max-width: 380px;
+        padding: 28px;
+    }
+
+    .forgot-password-header {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .forgot-password-subtext {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-input {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    .submit-button {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .message {
+        padding: 14px;
+        font-size: 13px;
+    }
+
+    .back-to-login {
+        font-size: 13px;
+    }
+
+    .Verify-back {
+        top: 90px;
+        left: 20px;
+        padding: 11px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile Screens (320px to 480px) */
+@media (max-width: 480px) {
+    .forgot-password-page-container {
+        padding: 30px 15px;
+        margin-top: 15px;
+        min-height: calc(100vh - 15px);
+    }
+
+    .forgot-password-card {
+        max-width: 100%;
+        padding: 25px 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        margin-top: 40px;
+    }
+
+    .forgot-password-header {
+        font-size: 22px;
+        margin-bottom: 8px;
+    }
+
+    .forgot-password-subtext {
+        font-size: 13px;
+        margin-bottom: 22px;
+        line-height: 1.6;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-input {
+        padding: 11px 13px;
+        font-size: 15px;
+        border-radius: 7px;
+    }
+
+    .submit-button {
+        padding: 11px;
+        font-size: 15px;
+        border-radius: 7px;
+    }
+
+    .message {
+        padding: 12px;
+        font-size: 13px;
+        margin-top: 18px;
+        border-radius: 7px;
+    }
+
+    .back-to-login {
+        margin-top: 18px;
+        font-size: 13px;
+    }
+
+    /* Back button - mobile position (top center or inside card) */
+    .Verify-back {
+        position: fixed;
+        top: 2px;
+        left: 15px;
+        padding: 10px 18px;
+        font-size: 14px;
+        border-radius: 7px;
+    }
+
+    .Verify-back::before {
+        font-size: 16px;
+    }
+}
+
+/* Extra Small Mobile Screens (below 320px) */
+@media (max-width: 319px) {
+    .forgot-password-page-container {
+        padding: 25px 12px;
+        margin-top: 10px;
+    }
+
+    .forgot-password-card {
+        padding: 20px 15px;
+        border-radius: 8px;
+    }
+
+    .forgot-password-header {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .forgot-password-subtext {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    .form-input {
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .submit-button {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .message {
+        padding: 10px;
+        font-size: 12px;
+        margin-top: 16px;
+        border-radius: 6px;
+    }
+
+    .back-to-login {
+        margin-top: 16px;
+        font-size: 12px;
+    }
+
+    /* Extra small - very compact back button */
+    .Verify-back {
+        position: fixed;
+        top: 5px;
+        left: 10px;
+        padding: 8px 14px;
+        font-size: 13px;
+        border-radius: 6px;
+    }
+
+    .Verify-back::before {
+        font-size: 14px;
+    }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    .forgot-password-page-container {
+        padding: 20px 15px;
+        margin-top: 10px;
+        align-items: center;
+
+    }
+
+    .forgot-password-card {
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .forgot-password-header {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .forgot-password-subtext {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-input {
+        padding: 10px 12px;
+    }
+
+    .submit-button {
+        padding: 10px;
+    }
+
+    .message {
+        padding: 10px;
+        margin-top: 12px;
+    }
+
+    /* Landscape - back button at top */
+    .Verify-back {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+/* Focus Visible for Accessibility */
+.form-input:focus-visible,
+.submit-button:focus-visible,
+.Verify-back:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .forgot-password-card {
+        border: 2px solid #333;
+    }
+
+    .form-input {
+        border: 2px solid #333;
+    }
+
+    .submit-button {
+        border: 2px solid #007bff;
+    }
+
+    .Verify-back {
+        border: 2px solid #6c2c91;
+    }
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .Verify-back {
+        display: none;
+    }
 }

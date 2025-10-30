@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom'; 
-
-// 🚨 Ensure this CSS file is in the same directory and contains the styles provided earlier
+import { Eye, EyeOff } from 'lucide-react';
 import './ResetPassword.css'; 
 
 export default function ResetPasswordFinal() {
@@ -16,6 +15,10 @@ export default function ResetPasswordFinal() {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    
+    // Show password states
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     
     const navigate = useNavigate();
 
@@ -49,7 +52,6 @@ export default function ResetPasswordFinal() {
            
             const backendUrl = `${import.meta.env.VITE_API_URL}/user/resetpassword`; 
             
-            
             const res = await axios.put(backendUrl, {
                 email,
                 password,
@@ -79,15 +81,11 @@ export default function ResetPasswordFinal() {
 
     return (
         <div className="reset-password-page-container">
-             <button onClick={()=>navigate('/verify')} style={{color:'white',backgroundColor:"purple",padding:"10px",borderRadius:"5px",borderWidth:"0px",marginRight:"10px",cursor:"pointer"}}>Back</button>
+             <button onClick={()=>navigate('/verify')} className="Verify-back">Back</button>
             <div className="reset-password-card">
                 <h2 className="reset-password-header">Reset Password</h2>
                 
-                {message && (
-                    <p className={`message ${isError ? 'error' : 'success'}`}>
-                        {message}
-                    </p>
-                )}
+                
                 
                 <form onSubmit={handleSubmit} className="reset-password-form">
                     <p className="reset-password-subtext">
@@ -98,32 +96,85 @@ export default function ResetPasswordFinal() {
 
                     <div className="form-group">
                         <label htmlFor="password">New Password</label>
-                        <input
-                            className="form-input"
-                            type="password"
-                            id="password"
-                            placeholder="Min 3, Max 20 characters"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            // Disable if we don't have the target email
-                            disabled={loading || !email} 
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                className="form-input"
+                                type={showPassword ? "text" : "password"}
+                                id="password"
+                                placeholder="Min 3, Max 20 characters"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                // Disable if we don't have the target email
+                                disabled={loading || !email}
+                                style={{ paddingRight: '40px' }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    padding: '4px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#666'
+                                }}
+                                disabled={loading || !email}
+                            >
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
                     </div>
                     
                     <div className="form-group">
                         <label htmlFor="confirmpassword">Confirm New Password</label>
-                        <input
-                            className="form-input"
-                            type="password"
-                            id="confirmpassword"
-                            placeholder="Re-enter new password"
-                            value={confirmpassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            disabled={loading || !email}
-                        />
+                        <div style={{ position: 'relative' }}>
+                            <input
+                                className="form-input"
+                                type={showConfirmPassword ? "text" : "password"}
+                                id="confirmpassword"
+                                placeholder="Re-enter new password"
+                                value={confirmpassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                                disabled={loading || !email}
+                                style={{ paddingRight: '40px' }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '10px',
+                                    top: '50%',
+                                    transform: 'translateY(-50%)',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    padding: '4px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#666'
+                                }}
+                                disabled={loading || !email}
+                            >
+                                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
                     </div>
+                    {message && (
+                    <p className={`message ${isError ? 'error' : 'success'}`}>
+                        {message}
+                    </p>
+                )}
                     
                     <button 
                         className="submit-button" 

@@ -17,6 +17,9 @@
   z-index: 1000;
   min-height: 60px;
 }
+.brand-text{
+  cursor:  pointer !important;
+}
 
 .brand {
   display: flex;

@@ -117,7 +117,7 @@ const OrderConfirmed = () => {
       });
 
       console.log("Cart cleared successfully");
-      navigate("/feedback");
+      navigate("/homepage");
       window.scrollTo(0, 0);
     } catch (err) {
       console.error("Failed to clear cart:", err);
@@ -233,6 +233,7 @@ const OrderConfirmed = () => {
             <FaWhatsapp className="whatsapp-icon" />
             Chat on WhatsApp to Confirm Order
           </button>
+          <br/>
           <button className="btn secondary" onClick={handleContinueShopping}>
             Continue Shopping
           </button>

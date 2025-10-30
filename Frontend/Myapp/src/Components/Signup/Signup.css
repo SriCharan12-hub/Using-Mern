@@ -1,5 +1,5 @@
 /* Reset & Base Styles */
-
+/*
 * {
   margin: 0;
   padding: 0;
@@ -7,40 +7,40 @@
 }
 
 :root {
-  /* Colors */
+  
   --primary: #1e40af;
   --primary-light: #3b82f6;
   --primary-dark: #1e3a8a;
   --secondary: #0f172a;
   --accent: #06b6d4;
   
-  /* Backgrounds */
+
   --bg-light: #f8fafc;
   --bg-white: #ffffff;
   --bg-gray: #f1f5f9;
   
-  /* Text Colors */
+ 
   --text-primary: #1e293b;
   --text-secondary: #64748b;
   --text-light: #94a3b8;
   
-  /* Borders & Dividers */
+  
   --border-color: #e2e8f0;
   --border-subtle: #f1f5f9;
   
-  /* Status Colors */
+  
   --error: #dc2626;
   --success: #16a34a;
   --warning: #ea580c;
   
-  /* Shadows */
+ 
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   --shadow-focus: 0 0 0 3px rgba(30, 64, 175, 0.1);
   
-  /* Transitions */
+
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -63,7 +63,7 @@ body {
   min-height: 100vh;
 }
 
-/* ==================== NAVBAR ==================== */
+
 
 .navbar {
   display: flex;
@@ -152,7 +152,7 @@ body {
   transform: translateY(0);
 }
 
-/* ==================== SIGNUP PAGE ==================== */
+
 
 .signup-page {
   display: flex;
@@ -215,7 +215,7 @@ body {
   margin: 0;
 }
 
-/* ==================== FORM STYLES ==================== */
+
 
 .signup-form {
   display: flex;
@@ -271,7 +271,7 @@ body {
   cursor: not-allowed;
 }
 
-/* Input States */
+
 
 .input-group input.success {
   border-color: var(--success);
@@ -322,7 +322,7 @@ body {
   float: right;
 }
 
-/* ==================== BUTTONS ==================== */
+
 
 .create-account-btn {
   width: 100%;
@@ -360,7 +360,7 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* ==================== DIVIDER ==================== */
+
 
 .divider-wrapper {
   display: flex;
@@ -383,7 +383,7 @@ body {
   white-space: nowrap;
 }
 
-/* ==================== GOOGLE LOGIN ==================== */
+
 
 .google-login-container {
   margin-top: 2rem;
@@ -425,7 +425,6 @@ body {
   height: 20px;
 }
 
-/* ==================== SIGNUP LINK ==================== */
 
 .signup-link-section {
   text-align: center;
@@ -453,7 +452,7 @@ body {
   text-decoration: underline;
 }
 
-/* ==================== TERMS & PRIVACY ==================== */
+
 
 .terms-privacy-text {
   text-align: center;
@@ -475,7 +474,6 @@ body {
   text-decoration: underline;
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
 
 @media (max-width: 768px) {
   .navbar {
@@ -621,7 +619,7 @@ body {
   }
 }
 
-/* ==================== DARK MODE ==================== */
+/
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -731,6 +729,7 @@ body {
     color: #93c5fd;
   }
 }
+*/
 
 
 
@@ -782,34 +781,46 @@ body {
 
 
 
-
-
-/*
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
+.signup-page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #25252b;
+    padding: 30px;
+}
 
 .signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #25252b;
-    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
 }
 
 .signup-box {
     position: relative;
     width: 90%;
-    max-width: 750px;
-    height: auto;
-    aspect-ratio: 750 / 450;
+    max-width: 900px;
+    min-height: 600px;
     border: 2px solid #e46033;
-    box-shadow: 0 0 25px #e46033;
+    box-shadow: 0 0 30px rgba(228, 96, 51, 0.5);
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     background: #25252b;
+    padding: 60px 0;
 }
 
 .signup-info {
@@ -818,44 +829,73 @@ body {
     justify-content: center;
     flex-direction: column;
     text-align: left;
-    padding: 0 clamp(60px, 12vw, 150px) clamp(30px, 8vh, 60px) clamp(20px, 5vw, 38px);
+    padding: 50px 70px 50px 50px;
     z-index: 2;
 }
 
 .signup-info h2 {
     text-transform: uppercase;
-    font-size: clamp(22px, 4vw, 36px);
-    line-height: 1.3;
+    font-size: clamp(28px, 4.5vw, 40px);
+    line-height: 1.2;
     color: #fff;
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 .signup-info p {
-    font-size: clamp(12px, 2.5vw, 16px);
-    margin-top: clamp(10px, 2vh, 15px);
-    color: #fff;
+    font-size: clamp(15px, 2.5vw, 17px);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.8;
+    font-weight: 400;
 }
 
 .signup-content {
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 clamp(20px, 7vw, 40px);
-  z-index: 2;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px 55px;
+    z-index: 2;
+    overflow-y: auto;
+    max-height: 700px;
+}
+
+.signup-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.signup-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.signup-content::-webkit-scrollbar-thumb {
+    background: #e46033;
+    border-radius: 10px;
+}
+
+.signup-content::-webkit-scrollbar-thumb:hover {
+    background: #ff7a50;
 }
 
 .signup-title {
-    font-size: clamp(24px, 5vw, 32px);
+    font-size: clamp(28px, 5vw, 36px);
     text-align: center;
     color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
 }
 
 .input-box {
-  position: relative;
-  width: 100%;
-  height: clamp(44px, 8vh, 52px);
-  margin-top: clamp(12px, 2.5vh, 20px);
+    position: relative;
+    width: 100%;
+    height: 52px;
+    margin-top: 22px;
+}
+
+.input-box:first-of-type {
+    margin-top: 0;
 }
 
 .input-box input {
@@ -864,12 +904,14 @@ body {
     background: transparent;
     border: none;
     outline: none;
-    font-size: clamp(13px, 2.5vw, 16px);
+    font-size: 15px;
     color: #fff;
-    font-weight: 600;
-    border-bottom: 2px solid #fff;
-    padding-right: 23px;
-    transition: .5s;
+    font-weight: 500;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    padding-right: 45px;
+    padding-left: 2px;
+    padding-bottom: 8px;
+    transition: border-color 0.4s ease;
 }
 
 .input-box input:focus,
@@ -880,27 +922,31 @@ body {
 .input-box label {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 2px;
     transform: translateY(-50%);
-    font-size: clamp(13px, 2.5vw, 16px);
-    color: #fff;
-    transition: .5s;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.4s ease;
     pointer-events: none;
+    font-weight: 400;
 }
 
 .input-box input:focus ~ label,
 .input-box input:valid ~ label {
-    top: -5px;
+    top: -10px;
+    font-size: 12px;
     color: #e46033;
+    font-weight: 500;
 }
 
 .input-box .icon {
     position: absolute;
     top: 50%;
-    right: 0;
-    font-size: clamp(16px, 3vw, 18px);
+    right: 5px;
+    font-size: 19px;
     transform: translateY(-50%);
-    color: #fff;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.4s ease;
 }
 
 .input-box input:focus ~ .icon,
@@ -908,20 +954,87 @@ body {
     color: #e46033;
 }
 
+/* Password Toggle Icon */
+.password-container {
+    position: relative;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    font-size: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    transition: all 0.3s ease;
+    filter: grayscale(0.3);
+}
+
+.password-toggle-icon:hover {
+    transform: translateY(-50%) scale(1.15);
+    filter: grayscale(0);
+}
+
+/* Error Text */
+.error-text {
+    color: #ff6b6b;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 16px;
+    padding: 12px 15px;
+    background: rgba(255, 107, 107, 0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 107, 107, 0.25);
+    animation: fadeInScale 0.4s ease;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .btn {
-  position: relative;
-  width: 100%;
-  height: clamp(40px, 7vh, 48px);
-  background: transparent;
-  border-radius: 40px;
-  cursor: pointer;
-  font-size: clamp(14px, 2.5vw, 16px);
-  font-weight: 600;
-  border: 2px solid #e46033;
-  overflow: hidden;
-  z-index: 1;
-  margin: 0.75rem 0 1.25rem; 
-  color: #fff;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    border: 2px solid #e46033;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 30px;
+    color: #fff;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+}
+
+.btn:hover {
+    box-shadow: 0 0 25px rgba(228, 96, 51, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn::before {
@@ -929,39 +1042,76 @@ body {
     position: absolute;
     height: 300%;
     width: 100%;
-    background: linear-gradient(#25252b, #e46033, #25252b, #e46033);
+    background: linear-gradient(180deg, #25252b, #e46033, #ff7a50, #e46033, #25252b);
     top: -100%;
     left: 0;
     z-index: -1;
-    transition: .5s;
+    transition: top 0.6s ease;
 }
 
 .btn:hover::before {
     top: 0;
 }
 
-.google-login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0.5rem;
-  width: 100%;
+.btn:disabled::before {
+    display: none;
+}
+
+.google-login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 22px;
+    width: 100%;
+    padding: 5px 0;
 }
 
 .regi-link {
-  font-size: clamp(12px, 2vw, 14px);
-  text-align: center;
-  margin: clamp(10px, 1.5vh, 16px) 0 clamp(8px, 1.2vh, 10px);
-  color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin: 22px 0 0;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 5px 0;
+}
+
+.regi-link p {
+    margin: 0;
+    line-height: 1.8;
+    font-weight: 400;
 }
 
 .regi-link a {
     text-decoration: none;
     color: #e46033;
     font-weight: 600;
+    transition: all 0.3s ease;
+    
 }
 
 .regi-link a:hover {
+    color: #ff7a50;
+    text-decoration: none;
+}
+
+.terms-privacy-text {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(148, 163, 184, 0.8);
+    margin-top: 20px;
+    line-height: 1.9;
+    font-weight: 400;
+    padding: 5px 10px;
+}
+
+.terms-privacy-text a {
+    color: #e46033;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.terms-privacy-text a:hover {
+    color: #ff7a50;
     text-decoration: underline;
 }
 
@@ -969,20 +1119,21 @@ body {
     position: absolute;
     left: 0;
     top: -5px;
-    height: 600px;
-    width: 850px;
+    /* height: 650px; */
+    width: 900px;
     background: linear-gradient(225deg, #25252b, #e46033);
     transform: rotate(-10deg) skewY(-40deg);
     transform-origin: bottom left;
     z-index: 1;
+    opacity: 0.95;
 }
 
 .curved-shape2 {
     position: absolute;
     right: 250px;
     top: 100%;
-    height: 700px;
-    width: 850px;
+    /* height: 750px; */
+    width: 900px;
     background: #25252b;
     border-top: 3px solid #e46033;
     transform: rotate(0deg) skewY(0deg);
@@ -990,79 +1141,351 @@ body {
     z-index: 1;
 }
 
+/* Enhanced Animation - Slide & Fade */
+.animation {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideInFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(var(--S) * 0.08s);
+}
 
-@media (max-width: 768px) {
-    .signup-box {
-        width: 95%;
-        aspect-ratio: auto;
-        height: 550px;
-    }
-
-    .signup-content {
-        padding: 0 clamp(15px, 5vw, 40px);
-    }
-
-    .signup-info {
-        padding: 0 clamp(50px, 10vw, 100px) clamp(25px, 6vh, 50px) clamp(15px, 4vw, 30px);
-    }
-
-    .curved-shape {
-        width: 600px;
-        height: 500px;
-    }
-
-    .curved-shape2 {
-        width: 600px;
-        height: 500px;
+@keyframes slideInFromLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
+/* Alternate animation for right side content */
+.signup-content .animation {
+    transform: translateX(30px);
+    animation: slideInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(var(--S) * 0.08s);
+}
 
+@keyframes slideInFromRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design - Large Tablets */
+@media (max-width: 1024px) {
+    .signup-page {
+        padding: 25px;
+    }
+
+    .signup-box {
+        max-width: 800px;
+        min-height: 580px;
+        padding: 50px 0;
+    }
+
+    .signup-info {
+        padding: 45px 60px 45px 40px;
+    }
+
+    .signup-content {
+        padding: 35px 50px;
+        max-height: 650px;
+    }
+
+    .signup-info h2 {
+        font-size: clamp(26px, 4vw, 36px);
+        margin-bottom: 22px;
+    }
+
+    .signup-title {
+        font-size: clamp(26px, 4.5vw, 32px);
+        margin-bottom: 28px;
+    }
+
+    .input-box {
+        height: 50px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        height: 48px;
+        margin-top: 28px;
+    }
+
+    .google-login-wrapper {
+        margin-top: 20px;
+    }
+
+    .regi-link {
+        margin-top: 20px;
+    }
+
+    .terms-privacy-text {
+        margin-top: 18px;
+    }
+}
+
+/* Responsive Design - Tablets */
+@media (max-width: 768px) {
+    .signup-page {
+        padding: 20px;
+    }
+
+    .signup-box {
+        width: 95%;
+        max-width: 700px;
+        min-height: 620px;
+        padding: 45px 0;
+        border-radius: 10px;
+    }
+
+    .signup-info {
+        width: 48%;
+        padding: 40px 45px 40px 35px;
+    }
+
+    .signup-content {
+        width: 52%;
+        padding: 30px 40px;
+        max-height: 600px;
+    }
+
+    .signup-info h2 {
+        font-size: clamp(24px, 4vw, 32px);
+        margin-bottom: 20px;
+    }
+
+    .signup-info p {
+        font-size: clamp(14px, 2.3vw, 16px);
+    }
+
+    .signup-title {
+        font-size: clamp(24px, 4.2vw, 30px);
+        margin-bottom: 25px;
+    }
+
+    .input-box {
+        height: 48px;
+        margin-top: 18px;
+    }
+
+    .input-box input {
+        font-size: 14px;
+        padding-right: 42px;
+    }
+
+    .input-box label {
+        font-size: 14px;
+    }
+
+    .btn {
+        height: 46px;
+        margin-top: 25px;
+        font-size: 15px;
+    }
+
+    .error-text {
+        font-size: 12px;
+        padding: 11px 13px;
+        margin-top: 14px;
+    }
+
+    .google-login-wrapper {
+        margin-top: 18px;
+    }
+
+    .regi-link {
+        font-size: 13px;
+        margin-top: 18px;
+    }
+
+    .terms-privacy-text {
+        font-size: 10px;
+        margin-top: 16px;
+    }
+
+    .curved-shape {
+        width: 700px;
+        /* height: 550px; */
+    }
+
+    .curved-shape2 {
+        width: 700px;
+        /* height: 650px; */
+    }
+}
+
+/* Responsive Design - Mobile Landscape / Small Tablets */
+@media (max-width: 640px) {
+    .signup-page {
+        padding: 18px;
+    }
+
+    .signup-box {
+        min-height: 580px;
+        padding: 40px 0;
+    }
+
+    .signup-info {
+        padding: 35px 40px 35px 30px;
+    }
+
+    .signup-content {
+        padding: 28px 35px;
+        max-height: 550px;
+    }
+
+    .signup-info h2 {
+        font-size: clamp(22px, 3.8vw, 28px);
+        margin-bottom: 18px;
+    }
+
+    .signup-info p {
+        font-size: clamp(13px, 2.2vw, 15px);
+    }
+
+    .signup-title {
+        font-size: clamp(22px, 4vw, 28px);
+        margin-bottom: 22px;
+    }
+
+    .input-box {
+        height: 46px;
+        margin-top: 16px;
+    }
+
+    .btn {
+        height: 44px;
+        margin-top: 22px;
+    }
+
+    .error-text {
+        margin-top: 12px;
+        padding: 10px 12px;
+    }
+
+    .google-login-wrapper {
+        margin-top: 16px;
+    }
+
+    .regi-link {
+        margin-top: 16px;
+    }
+
+    .terms-privacy-text {
+        margin-top: 14px;
+    }
+}
+
+/* Responsive Design - Mobile Portrait */
 @media (max-width: 480px) {
+    .signup-page {
+        padding: 0;
+        align-items: flex-start;
+    }
+
     .signup-container {
         padding: 0;
+        width: 100%;
     }
 
     .signup-box {
         width: 100%;
         max-width: 100%;
-        height: auto;
-        aspect-ratio: auto;
         min-height: 100vh;
         flex-direction: column;
         border-radius: 0;
+        border: none;
+        box-shadow: none;
+        padding: 0;
     }
 
     .signup-info {
         width: 100%;
-        padding: 30px 20px;
+        padding: 50px 30px 35px;
         text-align: center;
         order: 1;
+        background: linear-gradient(180deg, rgba(228, 96, 51, 0.1) 0%, transparent 100%);
+    }
+
+    .signup-info h2 {
+        font-size: clamp(26px, 6vw, 32px);
+        margin-bottom: 18px;
+        letter-spacing: 0.8px;
+    }
+
+    .signup-info p {
+        font-size: clamp(15px, 3.2vw, 17px);
+        max-width: 450px;
+        margin: 0 auto;
+        line-height: 1.7;
     }
 
     .signup-content {
         width: 100%;
-        padding: 40px 20px;
+        padding: 45px 30px 50px;
         text-align: center;
         order: 2;
+        max-height: none;
+        overflow-y: visible;
     }
 
     .signup-title {
-        font-size: clamp(22px, 6vw, 28px);
-        margin-bottom: 20px;
+        font-size: clamp(26px, 6vw, 32px);
+        margin-bottom: 28px;
     }
 
     .input-box {
-        margin-top: clamp(12px, 2vh, 18px);
+        margin-top: 20px;
+        height: 48px;
     }
 
-    .signup-info h2 {
-        font-size: clamp(20px, 5vw, 26px);
-        margin-bottom: 15px;
+    .input-box input {
+        font-size: 15px;
+        padding-right: 42px;
+        padding-left: 3px;
     }
 
-    .signup-info p {
-        font-size: clamp(13px, 3vw, 15px);
+    .input-box label {
+        font-size: 15px;
+        left: 3px;
+    }
+
+    .input-box .icon,
+    .password-toggle-icon {
+        font-size: 20px;
+        right: 8px;
+    }
+
+    .btn {
+        height: 48px;
+        margin-top: 28px;
+        font-size: 15px;
+    }
+
+    .error-text {
+        font-size: 13px;
+        padding: 12px 15px;
+        margin-top: 16px;
+    }
+
+    .google-login-wrapper {
+        margin-top: 22px;
+        padding: 8px 0;
+    }
+
+    .regi-link {
+        font-size: 14px;
+        margin-top: 20px;
+        padding: 8px 0;
+    }
+
+    .terms-privacy-text {
+        font-size: 11px;
+        margin-top: 20px;
+        max-width: 380px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px 15px;
     }
 
     .curved-shape,
@@ -1070,49 +1493,154 @@ body {
         display: none;
     }
 
-    .regi-link {
-        margin-top: clamp(15px, 3vh, 20px);
+    /* Mobile specific animation */
+    .animation {
+        transform: translateY(20px);
+        animation: slideInFromBottom 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .signup-content .animation {
+        transform: translateY(20px);
+        animation: slideInFromBottom 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes slideInFromBottom {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 }
 
-
+/* Responsive Design - Small Mobile */
 @media (max-width: 360px) {
+    .signup-info {
+        padding: 45px 25px 32px;
+    }
+
     .signup-content {
-        padding: 30px 15px;
+        padding: 40px 25px 45px;
+    }
+
+    .signup-info h2 {
+        font-size: clamp(24px, 5.5vw, 28px);
+        margin-bottom: 16px;
+    }
+
+    .signup-info p {
+        font-size: clamp(14px, 3vw, 15px);
     }
 
     .signup-title {
-        font-size: clamp(20px, 5vw, 24px);
-        margin-bottom: 15px;
+        font-size: clamp(24px, 5.5vw, 28px);
+        margin-bottom: 25px;
     }
 
     .input-box {
-        margin-top: clamp(10px, 1.5vh, 15px);
+        margin-top: 18px;
+        height: 46px;
     }
 
     .input-box input,
     .input-box label {
-        font-size: clamp(12px, 2vw, 14px);
+        font-size: 14px;
+    }
+
+    .input-box .icon,
+    .password-toggle-icon {
+        font-size: 19px;
     }
 
     .btn {
-        font-size: clamp(12px, 2vw, 14px);
-        height: clamp(32px, 6vh, 40px);
+        font-size: 14px;
+        height: 46px;
+        margin-top: 25px;
     }
 
-    .signup-info {
-        padding: 25px 15px;
+    .error-text {
+        font-size: 12px;
+        padding: 11px 13px;
+        margin-top: 14px;
     }
 
-    .signup-info h2 {
-        font-size: clamp(18px, 4vw, 22px);
-    }
-
-    .signup-info p {
-        font-size: clamp(12px, 2.5vw, 13px);
+    .google-login-wrapper {
+        margin-top: 20px;
     }
 
     .regi-link {
-        font-size: clamp(11px, 1.8vw, 12px);
+        font-size: 13px;
+        margin-top: 18px;
     }
-}*/
+
+    .terms-privacy-text {
+        font-size: 10px;
+        margin-top: 18px;
+        padding: 6px 12px;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 320px) {
+    .signup-info {
+        padding: 40px 20px 28px;
+    }
+
+    .signup-content {
+        padding: 35px 20px 40px;
+    }
+
+    .signup-info h2 {
+        font-size: 22px;
+        margin-bottom: 14px;
+    }
+
+    .signup-info p {
+        font-size: 13px;
+    }
+
+    .signup-title {
+        font-size: 22px;
+        margin-bottom: 22px;
+    }
+
+    .input-box {
+        height: 44px;
+        margin-top: 16px;
+    }
+
+    .input-box input,
+    .input-box label {
+        font-size: 13px;
+    }
+
+    .input-box .icon,
+    .password-toggle-icon {
+        font-size: 18px;
+    }
+
+    .btn {
+        height: 44px;
+        font-size: 13px;
+        margin-top: 22px;
+    }
+
+    .error-text {
+        font-size: 11px;
+        padding: 10px 12px;
+        margin-top: 12px;
+    }
+
+    .google-login-wrapper {
+        margin-top: 18px;
+    }
+
+    .regi-link {
+        font-size: 12px;
+        margin-top: 16px;
+    }
+
+    .terms-privacy-text {
+        font-size: 9px;
+        margin-top: 16px;
+    }
+}

@@ -20,6 +20,7 @@ const Checkout = () => {
         PhoneNumber: '',
     });
     const [currentEditId, setCurrentEditId] = useState(null);
+    const [status,setStatus] = useState("")
 
     const [paymentMethod, setPaymentMethod] = useState('creditCard');
     const [cardDetails, setCardDetails] = useState({ cardNumber: '', expiryDate: '', cvv: '' });
@@ -71,16 +72,14 @@ const Checkout = () => {
         
         try {
             const res = await axios[method](url, newAddressDetails, { headers });
-            alert(res.data.message);
-            
+            setStatus(res.data.message);
             setNewAddressDetails({ fullName: '', Address: '', City: '', postalCode: '', PhoneNumber: '' });
             setIsAddingNew(false);
             setCurrentEditId(null);
-            
             await fetchAddresses();
         } catch (err) {
             console.error('Address submission failed:', err.response?.data || err);
-            alert(`Failed to save address: ${err.response?.data?.message || "Check your input."}`);
+            setStatus(`Failed to save address: ${err.response?.data?.message || "Check your input."}`);
         }
     };
 
@@ -101,12 +100,12 @@ const Checkout = () => {
                 return updatedAddresses;
             });
             
-            alert(res.data.message);
+            setStatus(res.data.message);
             
             await fetchAddresses();
         } catch (err) {
             console.error('Address deletion failed:', err.response?.data || err);
-            alert(`Failed to delete address: ${err.response?.data?.message || "Unknown error"}`);
+            setStatus(`Failed to delete address: ${err.response?.data?.message || "Unknown error"}`);
             await fetchAddresses();
         }
     };
@@ -175,20 +174,19 @@ const Checkout = () => {
         setCardDetails({ ...cardDetails, [name]: value });
     };
 
-    // --- UPDATED LOGIC HERE ---
     const handlePlaceOrder = async () => {
         if (!token) {
             alert("You must be logged in to place an order.");
             return;
         }
         if (!selectedAddressId) {
-            alert("Please select a shipping address.");
+            setStatus("Please select a shipping address.");
             return;
         }
 
         const finalShippingDetails = userAddresses.find(addr => addr._id === selectedAddressId);
         if (!finalShippingDetails) {
-            alert("Error: Selected address details missing.");
+            setStatus("Error: Selected address details missing.");
             return;
         }
 
@@ -208,25 +206,23 @@ const Checkout = () => {
             if (response.status === 201) {
                 const newOrder = response.data.order; 
                 
-                // Construct detailed item list for OrderConfirmed page display
                 const itemsForConfirmation = cartItems.map(item => ({
                     productId: item.id,
                     title: item.name, 
                     image: item.image,
                     quantity: item.quantity,
-                    priceAtOrder: item.price // Use 'priceAtOrder' as the OrderConfirmed component expects
+                    priceAtOrder: item.price
                 }));
 
                 navigate('/orderconfirmed', { 
                     state: { 
                         order: {
                             ...newOrder, 
-                            items: itemsForConfirmation, // Pass the detailed item array
-                            totalAmount: total           // Ensure total is passed accurately
+                            items: itemsForConfirmation,
+                            totalAmount: total
                         }
                     } 
                 });
-                // Clear local cart immediately so navbar updates
                 try {
                     dispatch(clearCart());
                 } catch (e) { console.debug('clearCart dispatch failed', e); }
@@ -235,10 +231,9 @@ const Checkout = () => {
             }
         } catch (err) {
             console.error('Failed to place order:', err.response?.data || err.message);
-            alert('Failed to place order. Please try again.');
+            setStatus   ('Failed to place order. Please try again.');
         }
     };
-    // --- END UPDATED LOGIC ---
 
     if (loading) {
         return <div className="loader-container">
@@ -255,7 +250,32 @@ const Checkout = () => {
         return (
             <div className="checkout-page">
                 <NavSearch/>
-                <div className="empty-cart-message">Your cart is empty.</div>
+                <div className="empty-cart-message">
+                    <div className="empty-cart-animation">
+                        <svg className="empty-cart-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path className="cart-body" d="M9 11V6C9 4.34315 10.3431 3 12 3C13.6569 3 15 4.34315 15 6V11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path className="cart-base" d="M3 11H21L20 21H4L3 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <circle className="dot dot-1" cx="9" cy="16" r="1" fill="currentColor"/>
+                            <circle className="dot dot-2" cx="15" cy="16" r="1" fill="currentColor"/>
+                        </svg>
+                        <div className="empty-lines">
+                            <div className="line line-1"></div>
+                            <div className="line line-2"></div>
+                            <div className="line line-3"></div>
+                        </div>
+                    </div>
+                    <h2 className="empty-cart-title">Your Cart is Empty</h2>
+                    <p className="empty-cart-description">Looks like you haven't added any items to your cart yet.</p>
+                    <button 
+                        className="shop-now-btn"
+                        onClick={() => {
+                            navigate('/homepage');
+                            window.scrollTo(0, 0);
+                        }}
+                    >
+                        Start Shopping
+                    </button>
+                </div>
             </div>
         );
     }
@@ -311,6 +331,7 @@ const Checkout = () => {
                 title="Please enter a valid 10-digit phone number"
                 required 
             />
+            {status && <p  style={{color:"red"}}>{status}</p>}
             <div className="address-form-actions">
                 <button type="submit" className="btn-primary">
                     {currentEditId ? 'Save Changes' : 'Add Address'}

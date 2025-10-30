@@ -132,6 +132,46 @@ const cartSlice = createSlice({
   },
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Async thunk to fetch cart from backend (background revalidation)
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
