@@ -23,7 +23,6 @@ const UserFeedback = () => {
     const token = Cookies.get('jwttoken');
     const headers = { Authorization: `Bearer ${token}` };
 
-    // Fetch user's feedbacks on component mount
     useEffect(() => {
         fetchMyFeedbacks();
     }, []);
@@ -76,7 +75,15 @@ const UserFeedback = () => {
         setError('');
         setStatus('');
 
-        if (!formData.name || !formData.email || !formData.feedbackType || !formData.subject || !formData.message) {
+        // Trim values for validation
+        const trimmedSubject = formData.subject.trim();
+        const trimmedMessage = formData.message.trim();
+        const trimmedName = formData.name.trim();
+        const trimmedEmail = formData.email.trim();
+        const trimmedPhone = formData.phone.trim();
+
+        // Required fields validation
+        if (!trimmedName || !trimmedEmail || !formData.feedbackType || !trimmedSubject || !trimmedMessage) {
             setError('Please fill in all required fields.');
             setTimeout(() => setError(''), 3000);
             return;
@@ -84,8 +91,37 @@ const UserFeedback = () => {
 
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
+        if (!emailRegex.test(trimmedEmail)) {
             setError('Please enter a valid email address.');
+            setTimeout(() => setError(''), 3000);
+            return;
+        }
+
+        // Phone validation - must be exactly 10 digits if provided
+        if (trimmedPhone) {
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(trimmedPhone)) {
+                setError('Phone number must be exactly 10 digits (no spaces or special characters).');
+                setTimeout(() => setError(''), 3000);
+                return;
+            }
+        } else {
+            // Phone is required by backend
+            setError('Please enter your 10-digit phone number.');
+            setTimeout(() => setError(''), 3000);
+            return;
+        }
+
+        // Subject length validation
+        if (trimmedSubject.length < 5 || trimmedSubject.length > 100) {
+            setError('Subject must be between 5 and 100 characters.');
+            setTimeout(() => setError(''), 3000);
+            return;
+        }
+
+        // Message length validation
+        if (trimmedMessage.length < 10 || trimmedMessage.length > 1000) {
+            setError('Message must be between 10 and 1000 characters.');
             setTimeout(() => setError(''), 3000);
             return;
         }
@@ -93,9 +129,20 @@ const UserFeedback = () => {
         setIsLoading(true);
 
         try {
+            // Send trimmed data
+            const submitData = {
+                name: trimmedName,
+                email: trimmedEmail,
+                phone: trimmedPhone,
+                feedbackType: formData.feedbackType,
+                subject: trimmedSubject,
+                message: trimmedMessage,
+                rating: formData.rating || null
+            };
+
             const response = await axios.post(
                 `${import.meta.env.VITE_API_URL}/feedback/submit`,
-                formData,
+                submitData,
                 { headers }
             );
 
@@ -217,15 +264,19 @@ const UserFeedback = () => {
 
                     <div className="form-row-user">
                         <div className="form-group-user">
-                            <label htmlFor="phone">Phone Number</label>
+                            <label htmlFor="phone">Phone Number * (10 digits)</label>
                             <input
-                                type="number"
+                                type="text"
                                 id="phone"
                                 name="phone"
-                                placeholder="+1 (555) 123-4567"
+                                placeholder="9876543210"
                                 value={formData.phone}
                                 onChange={handleChange}
+                                maxLength="10"
+                                pattern="\d{10}"
+                                required
                             />
+                            <small style={{color: '#666', fontSize: '12px'}}>Enter 10 digits without spaces or special characters</small>
                         </div>
 
                         <div className="form-group-user">
@@ -239,7 +290,6 @@ const UserFeedback = () => {
                             >
                                 <option value="suggestion">Suggestion</option>
                                 <option value="complaint">Complaint</option>
-                                <option value="praise">Praise</option>
                                 <option value="bug">Bug Report</option>
                                 <option value="other">Other</option>
                             </select>
@@ -247,7 +297,7 @@ const UserFeedback = () => {
                     </div>
 
                     <div className="form-group-user full-width-user">
-                        <label htmlFor="subject">Subject *</label>
+                        <label htmlFor="subject">Subject * (5-100 characters)</label>
                         <input
                             type="text"
                             id="subject"
@@ -255,12 +305,14 @@ const UserFeedback = () => {
                             placeholder="What is your feedback about?"
                             value={formData.subject}
                             onChange={handleChange}
+                            minLength="5"
+                            maxLength="100"
                             required
                         />
                     </div>
 
                     <div className="form-group-user full-width-user">
-                        <label htmlFor="message">Your Message *</label>
+                        <label htmlFor="message">Your Message * (10-1000 characters)</label>
                         <textarea
                             id="message"
                             name="message"
@@ -269,11 +321,14 @@ const UserFeedback = () => {
                             onChange={handleChange}
                             required
                             rows="5"
+                            minLength="10"
+                            maxLength="1000"
                         />
+                        <small style={{color: '#666', fontSize: '12px'}}>{formData.message.length}/1000 characters</small>
                     </div>
 
                     <div className="form-group-user full-width-user">
-                        <label>Rate Your Experience</label>
+                        <label>Rate Your Experience (Optional)</label>
                         <div className="rating-input-user">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <span

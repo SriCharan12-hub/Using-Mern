@@ -40,6 +40,7 @@ const Checkout = () => {
     const fetchAddresses = async () => {
         if (!token) return;
         try {
+            setStatus("")
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/getaddress`, { headers });
             const addresses = res.data.addresses || [];
             setUserAddresses(addresses);
@@ -64,6 +65,7 @@ const Checkout = () => {
     const handleSubmitAddress = async (e) => {
         e.preventDefault();
         if (!token) { alert("Please log in."); return; }
+        setStatus("")
 
         const url = currentEditId
             ? `${import.meta.env.VITE_API_URL}/updateaddress/${currentEditId}`
@@ -111,6 +113,11 @@ const Checkout = () => {
     };
     
     const handleEditAddress = (address) => {
+        setStatus("")
+         if (address.postalCode.length !== 6) {
+            setStatus("Please enter a valid postal code.");
+            return;
+        }
         setCurrentEditId(address._id);
         setNewAddressDetails({
             fullName: address.fullName,
@@ -183,6 +190,7 @@ const Checkout = () => {
             setStatus("Please select a shipping address.");
             return;
         }
+       
 
         const finalShippingDetails = userAddresses.find(addr => addr._id === selectedAddressId);
         if (!finalShippingDetails) {

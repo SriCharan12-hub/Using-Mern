@@ -54,7 +54,6 @@ export const useradd = async (req, res) => {
     const hashedpassword = await bcrypt.hash(password,10)
     const data = new usermodel({ email, username, password:hashedpassword });
     const savedData = await data.save();
-
     res.status(201).json({
       message: "Registered successfully",
       result: savedData,

@@ -265,7 +265,7 @@ const ProductDetailView = () => {
       <div className="error-container">
         <Navbar />
         <div className="error">{error || "Product not found"}</div>
-        <button onClick={() => navigate(-1)} className="back-button">
+        <button onClick={() => navigate(-1)} className="back-button" style={{cursor: "pointer"}}>
           Go Back
         </button>
       </div>

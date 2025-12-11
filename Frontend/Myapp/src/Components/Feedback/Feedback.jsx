@@ -10,7 +10,7 @@ const Feedback = () => {
         name: '',
         email: '',
         phone: '',
-        feedbackType: 'suggestion',
+        feedbackType: 'improvement',
         subject: '',
         message: '',
         rating: 0
@@ -54,6 +54,12 @@ const Feedback = () => {
 
         if (!formData.name || !formData.email || !formData.feedbackType || !formData.subject || !formData.message) {
             setError('Please fill in all required fields.');
+            return;
+        }
+
+        // Phone validation (if provided)
+        if (formData.phone && !/^\d{10}$/.test(formData.phone)) {
+            setError('Please enter a valid 10-digit phone number.');
             return;
         }
 
@@ -168,10 +174,11 @@ const Feedback = () => {
                                     onChange={handleChange}
                                     required
                                 >
-                                    <option value="suggestion">Suggestion</option>
-                                    <option value="complaint">Complaint</option>
-                                    <option value="praise">Praise</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="improvement">Improvement</option>
                                     <option value="bug">Bug Report</option>
+                                    <option value="complaint">Complaint</option>
+                                    <option value="appreciation">Appreciation</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>

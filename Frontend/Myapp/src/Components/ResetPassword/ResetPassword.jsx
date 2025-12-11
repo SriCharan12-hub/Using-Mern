@@ -51,14 +51,11 @@ export default function ResetPasswordFinal() {
         try {
            
             const backendUrl = `${import.meta.env.VITE_API_URL}/user/resetpassword`; 
-            
             const res = await axios.put(backendUrl, {
                 email,
                 password,
                 confirmpassword, 
             });
-
-           
             setMessage(res.data.message || "Password updated successfully! Redirecting to login...");
             setIsError(false);
             
